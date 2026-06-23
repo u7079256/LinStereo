@@ -29,11 +29,14 @@
     });
   }
 
-  /* ---------- Comparison wipe slider ---------- */
+  /* ---------- Comparison wipe slider (multi-dataset) ---------- */
   var SCENES = {
-    a: { input: "static/images/slider_a_input.jpg", depth: "static/images/slider_a_depth.jpg" },
-    b: { input: "static/images/slider_b_input.jpg", depth: "static/images/slider_b_depth.jpg" },
-    c: { input: "static/images/slider_c_input.jpg", depth: "static/images/slider_c_depth.jpg" }
+    booster:   { input: "static/images/hero/booster_input.jpg",   depth: "static/images/hero/booster_depth.jpg",   ar: 1.37 },
+    kitti:     { input: "static/images/hero/kitti_input.jpg",     depth: "static/images/hero/kitti_depth.jpg",     ar: 3.358 },
+    eth3d:     { input: "static/images/hero/eth3d_input.jpg",     depth: "static/images/hero/eth3d_depth.jpg",     ar: 1.936 },
+    tartanair: { input: "static/images/hero/tartanair_input.jpg", depth: "static/images/hero/tartanair_depth.jpg", ar: 1.334 },
+    squid:     { input: "static/images/hero/squid_input.jpg",     depth: "static/images/hero/squid_depth.jpg",     ar: 1.581 },
+    seastereo: { input: "static/images/slider_a_input.jpg",       depth: "static/images/slider_a_depth.jpg",       ar: 1.333 }
   };
 
   var cmp = document.getElementById("cmpTeaser");
@@ -83,6 +86,7 @@
         if (!s) return;
         front.src = s.input;
         back.src = s.depth;
+        if (s.ar) frame.style.aspectRatio = String(s.ar);
         teaserTabs.querySelectorAll(".tab").forEach(function (t) {
           var on = t === btn;
           t.classList.toggle("is-active", on);
@@ -90,6 +94,13 @@
         });
         setPos(50);
       });
+
+      // optional deep-link: ?scene=kitti preselects a dataset tab
+      var initScene = new URLSearchParams(location.search).get("scene");
+      if (initScene && SCENES[initScene]) {
+        var pre = teaserTabs.querySelector('.tab[data-scene="' + initScene + '"]');
+        if (pre) pre.click();
+      }
     }
     setPos(50);
   }

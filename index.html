@@ -4,12 +4,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>LinStereo: Linear-Complexity Global Attention for Multi-Scale Iterative Stereo Matching</title>
-<meta name="description" content="LinStereo — a linear-complexity global-attention (PALA) decoder on a frozen Depth Anything V3 backbone for zero-shot underwater stereo depth estimation. ECCV 2026." />
+<meta name="description" content="LinStereo — a linear-complexity global-attention (PALA) stereo decoder on a frozen Depth Anything V3 backbone. Competitive on standard benchmarks and zero-shot to new domains, including underwater. ECCV 2026." />
 
 <!-- Open Graph / social -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="LinStereo: Linear-Complexity Global Attention for Stereo Matching" />
-<meta property="og:description" content="Zero-shot underwater stereo from a frozen Depth Anything V3 backbone. 9.8% lower AbsRel on TartanAir-UW, 24.3% on SQUID — trained on SceneFlow only." />
+<meta property="og:description" content="Linear-complexity global attention for iterative stereo on a frozen Depth Anything V3 backbone — competitive on standard benchmarks and strong zero-shot generalization (9.8% lower AbsRel on TartanAir-UW, 24.3% on SQUID). ECCV 2026." />
 <meta property="og:image" content="static/images/og_card.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -96,16 +96,17 @@
   <div class="container">
     <div class="reveal">
       <h2 class="eyebrow">Drag to reveal</h2>
-      <p class="lead">Underwater scattering and attenuation wreck the local photometric cues stereo relies on.
-        Drag the handle: a <strong>murky underwater input</strong> on one side, LinStereo's <strong>dense disparity</strong> on the other.</p>
+      <p class="lead">One frozen model, many domains, zero fine-tuning. Drag the handle: the <strong>stereo input</strong>
+        on one side, LinStereo's <strong>dense disparity</strong> on the other &mdash; the <em>same</em> network across
+        street scenes, indoor and outdoor benchmarks, and underwater footage it has never seen.</p>
 
-      <div class="cmp" id="cmpTeaser" data-scene="a">
-        <div class="cmp__frame">
-          <img class="cmp__img cmp__img--back" id="cmpBack" src="static/images/slider_a_depth.jpg" alt="LinStereo predicted disparity (turbo colormap)" />
+      <div class="cmp" id="cmpTeaser" data-scene="booster">
+        <div class="cmp__frame" style="aspect-ratio:1.37">
+          <img class="cmp__img cmp__img--back" id="cmpBack" src="static/images/hero/booster_depth.jpg" alt="LinStereo predicted disparity (turbo colormap)" />
           <div class="cmp__clip" id="cmpClip">
-            <img class="cmp__img cmp__img--front" id="cmpFront" src="static/images/slider_a_input.jpg" alt="Underwater stereo input (left view)" />
+            <img class="cmp__img cmp__img--front" id="cmpFront" src="static/images/hero/booster_input.jpg" alt="Stereo input (left view)" />
           </div>
-          <div class="cmp__label cmp__label--left">Underwater input</div>
+          <div class="cmp__label cmp__label--left">Input</div>
           <div class="cmp__label cmp__label--right">LinStereo disparity</div>
           <div class="cmp__handle" id="cmpHandle" role="slider" aria-label="Reveal slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
             <span class="cmp__handle-grip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l-4 6 4 6M15 6l4 6-4 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
@@ -113,13 +114,17 @@
         </div>
       </div>
 
-      <div class="tabs" id="teaserTabs" role="tablist" aria-label="Scene">
-        <button class="tab is-active" data-scene="a" role="tab" aria-selected="true">Jerlov&nbsp;IA &middot; shallow</button>
-        <button class="tab" data-scene="b" role="tab" aria-selected="false">Jerlov&nbsp;3C &middot; shallow</button>
-        <button class="tab" data-scene="c" role="tab" aria-selected="false">Jerlov&nbsp;II &middot; deep</button>
+      <div class="tabs" id="teaserTabs" role="tablist" aria-label="Dataset">
+        <button class="tab is-active" data-scene="booster" role="tab" aria-selected="true">Booster</button>
+        <button class="tab" data-scene="kitti" role="tab" aria-selected="false">KITTI</button>
+        <button class="tab" data-scene="eth3d" role="tab" aria-selected="false">ETH3D</button>
+        <button class="tab" data-scene="tartanair" role="tab" aria-selected="false">TartanAir-UW</button>
+        <button class="tab" data-scene="squid" role="tab" aria-selected="false">SQUID</button>
+        <button class="tab" data-scene="seastereo" role="tab" aria-selected="false">SeaStereo</button>
       </div>
-      <p class="caption">SeaStereo samples (ShapeNet objects composited over real marine backgrounds, rendered under varying Jerlov water types).
-        LinStereo is trained on <strong>SceneFlow only</strong> &mdash; it has never seen underwater data.</p>
+      <p class="caption">A single LinStereo model &mdash; frozen <strong>Depth Anything&nbsp;V3</strong> backbone, trained on
+        <strong>SceneFlow only</strong> &mdash; runs zero-shot across all six datasets, from KITTI street scenes to real
+        underwater SQUID footage it was never trained on. Black&nbsp;= no ground truth.</p>
     </div>
   </div>
 </section>
@@ -366,68 +371,347 @@
 
 <!-- ================= SUPPLEMENTARY ================= -->
 <section class="section section--soft" id="supplementary">
-  <div class="container">
+  <div class="container container--wide">
     <h2 class="section__title">More qualitative results</h2>
-    <p class="lead lead--center reveal">Additional per-benchmark comparisons from the supplementary material. Pick a benchmark &mdash;
-      each panel shows the input alongside recent baselines and <strong>LinStereo (Ours)</strong>.</p>
+    <p class="lead lead--center reveal">Per-benchmark comparisons from the supplementary material, <strong>one scene per row</strong>:
+      the input alongside recent baselines and <strong>LinStereo&nbsp;(Ours, highlighted)</strong>. Pick a benchmark.</p>
 
-    <div class="gallery__group reveal">
-      <h3 class="subhead">Standard benchmarks</h3>
-      <div class="tabs" data-gallery="std" role="tablist" aria-label="Standard benchmark">
-        <button class="tab is-active" data-fig="booster" role="tab" aria-selected="true">Booster</button>
-        <button class="tab" data-fig="eth3d" role="tab" aria-selected="false">ETH3D</button>
-        <button class="tab" data-fig="kitti2012" role="tab" aria-selected="false">KITTI&#8217;12</button>
-        <button class="tab" data-fig="kitti2015" role="tab" aria-selected="false">KITTI&#8217;15</button>
-      </div>
-      <div class="gallery" data-gallery="std">
-        <figure class="figure gallery__item is-active" data-fig="booster">
-          <img src="static/images/supp_booster.jpg" alt="Booster qualitative comparison across six methods on glass, metal, and appliance scenes; LinStereo recovers cleaner non-Lambertian surfaces." loading="lazy" />
-          <figcaption><strong>Booster (Q).</strong> Transparent glass bottles, a specular metallic sink, and reflective appliances, where the target depth is the physical surface rather than what is seen through transparent objects. Competing methods bleed depth around glass and leave noise on specular metal, while LinStereo recovers clean contours and consistent surface depth (red boxes).</figcaption>
-        </figure>
-        <figure class="figure gallery__item" data-fig="eth3d">
-          <img src="static/images/supp_eth3d.jpg" alt="ETH3D comparison on thin pipes, dark building, and vegetation; LinStereo preserves thin structures and stays stable in low light." loading="lazy" />
-          <figcaption><strong>ETH3D.</strong> Industrial interiors with thin pipes, low-light building exteriors, and dense outdoor vegetation. Baselines lose thin-structure continuity and produce large-area errors in dark regions, while LinStereo preserves fine detail and stays stable under low light (cyan boxes).</figcaption>
-        </figure>
-        <figure class="figure gallery__item" data-fig="kitti2012">
-          <img src="static/images/supp_kitti2012.jpg" alt="KITTI 2012 comparison across four street scenes; LinStereo gives sharper vehicle boundaries and thin structures." loading="lazy" />
-          <figcaption><strong>KITTI 2012.</strong> Four street scenes comparing the left image with FoundationStereo, MGStereo, DeFOM-Stereo, Stereo Anywhere, and LinStereo (Ours). LinStereo yields sharper vehicle boundaries and preserves thin structures such as poles and traffic signs that competing methods blur or fragment (red boxes).</figcaption>
-        </figure>
-        <figure class="figure gallery__item" data-fig="kitti2015">
-          <img src="static/images/supp_kitti2015.jpg" alt="KITTI 2015 comparison across four scenes; LinStereo recovers distant objects and road-level structure." loading="lazy" />
-          <figcaption><strong>KITTI 2015.</strong> Compared against IGEV++, MGStereo, DeFOM-Stereo, and Stereo Anywhere, LinStereo recovers small distant objects and road-level structure such as guard rails that the baselines over-smooth or miss (red boxes).</figcaption>
-        </figure>
-      </div>
+  <div class="gallery__group reveal">
+    <h3 class="subhead">Standard benchmarks</h3>
+    <div class="tabs" data-gallery="std" role="tablist" aria-label="Standard benchmarks">
+      <button class="tab is-active" data-fig="booster" role="tab" aria-selected="true">Booster</button>
+      <button class="tab" data-fig="eth3d" role="tab" aria-selected="false">ETH3D</button>
+      <button class="tab" data-fig="kitti2012" role="tab" aria-selected="false">KITTI&#8217;12</button>
+      <button class="tab" data-fig="kitti2015" role="tab" aria-selected="false">KITTI&#8217;15</button>
     </div>
-
-    <div class="gallery__group reveal">
-      <h3 class="subhead">Underwater &amp; synthetic</h3>
-      <div class="tabs" data-gallery="uw" role="tablist" aria-label="Underwater benchmark">
-        <button class="tab is-active" data-fig="tartanair1" role="tab" aria-selected="true">TartanAir-UW&nbsp;&#9312;</button>
-        <button class="tab" data-fig="tartanair2" role="tab" aria-selected="false">TartanAir-UW&nbsp;&#9313;</button>
-        <button class="tab" data-fig="squid" role="tab" aria-selected="false">SQUID</button>
-        <button class="tab" data-fig="seasynth2" role="tab" aria-selected="false">SeaStereo</button>
+    <div class="gallery" data-gallery="std">
+    <figure class="figure gallery__item is-active" data-fig="booster">
+      <div class="panelset" style="--cols:6">
+        <div class="panelset__head">
+          <span>Input</span>
+          <span>IGEV++</span>
+          <span>MGStereo</span>
+          <span>DeFOM-Stereo</span>
+          <span>Stereo Anywhere</span>
+          <span class="is-ours">Ours</span>
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/booster_s0_p0.jpg" alt="Booster Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/booster_s0_p1.jpg" alt="Booster IGEV++" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/booster_s0_p2.jpg" alt="Booster MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/booster_s0_p3.jpg" alt="Booster DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/booster_s0_p4.jpg" alt="Booster Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/booster_s0_p5.jpg" alt="Booster Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/booster_s1_p0.jpg" alt="Booster Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/booster_s1_p1.jpg" alt="Booster IGEV++" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/booster_s1_p2.jpg" alt="Booster MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/booster_s1_p3.jpg" alt="Booster DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/booster_s1_p4.jpg" alt="Booster Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/booster_s1_p5.jpg" alt="Booster Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/booster_s2_p0.jpg" alt="Booster Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/booster_s2_p1.jpg" alt="Booster IGEV++" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/booster_s2_p2.jpg" alt="Booster MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/booster_s2_p3.jpg" alt="Booster DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/booster_s2_p4.jpg" alt="Booster Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/booster_s2_p5.jpg" alt="Booster Ours" loading="lazy">
+        </div>
       </div>
-      <div class="gallery" data-gallery="uw">
-        <figure class="figure gallery__item is-active" data-fig="tartanair1">
-          <img src="static/images/supp_tartanair1.jpg" alt="TartanAir-UW comparison on seafloor, cliff, and reef scenes; LinStereo keeps accurate near-to-far depth." loading="lazy" />
-          <figcaption><strong>TartanAir-UW (1/2).</strong> Simulated underwater scenes (rocky seafloor, an underwater cliff with vegetation, a coral reef with fish). Baselines overestimate depth in backscatter-affected distant regions and lose small foreground objects, whereas LinStereo preserves accurate near-to-far depth transitions and resolves individual object depth (red boxes).</figcaption>
-        </figure>
-        <figure class="figure gallery__item" data-fig="tartanair2">
-          <img src="static/images/supp_tartanair2.jpg" alt="TartanAir-UW severe-degradation comparison; LinStereo recovers coherent depth where baselines collapse." loading="lazy" />
-          <figcaption><strong>TartanAir-UW (2/2).</strong> Severe scattering and low visibility. Baselines show depth collapse, blocky artifacts, or over-smoothing that erases terrain and vegetation, while LinStereo recovers coherent depth gradients and detects small foreground objects in extremely degraded conditions (red boxes).</figcaption>
-        </figure>
-        <figure class="figure gallery__item" data-fig="squid">
-          <img src="static/images/supp_squid.jpg" alt="SQUID real-world underwater comparison; LinStereo keeps stable depth and recovers fine detail." loading="lazy" />
-          <figcaption><strong>SQUID (real-world).</strong> Shallow sandy seafloor, near-field coral and rock, and man-made equipment. Under strong color attenuation the baselines show depth-scale inconsistencies, over-smoothed fine structures, and depth bleeding, while LinStereo keeps stable depth and recovers fine detail (red boxes). Black regions denote unavailable depth.</figcaption>
-        </figure>
-        <figure class="figure gallery__item" data-fig="seasynth2">
-          <img src="static/images/benchmark_vis_jerlov.jpg" alt="SeaStereo synthetic comparison with left/right/GT and six methods; LinStereo preserves sharp contours and depth layering." loading="lazy" />
-          <figcaption><strong>SeaStereo (synthetic).</strong> Columns: left, right, ground truth, then IGEV++, MGStereo, FoundationStereo, DEFOM-Stereo, Stereo Anywhere, and LinStereo (Ours). Baselines show edge noise or shape distortion on elongated structures and over-smooth vegetation, losing depth layering, while LinStereo preserves sharp object contours and foreground&ndash;background separation (red boxes).</figcaption>
-        </figure>
+      <figcaption><strong>Booster (Q).</strong> Transparent glass bottles, a specular metallic sink, and reflective appliances &mdash; the target depth is the physical surface, not what is seen through the glass. Baselines bleed depth around glass and leave noise on specular metal; LinStereo recovers clean contours and consistent surface depth (red boxes).</figcaption>
+    </figure>
+    <figure class="figure gallery__item" data-fig="eth3d">
+      <div class="panelset" style="--cols:6">
+        <div class="panelset__head">
+          <span>Input</span>
+          <span>IGEV++</span>
+          <span>MGStereo</span>
+          <span>DeFOM-Stereo</span>
+          <span>Stereo Anywhere</span>
+          <span class="is-ours">Ours</span>
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/eth3d_s0_p0.jpg" alt="ETH3D Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/eth3d_s0_p1.jpg" alt="ETH3D IGEV++" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/eth3d_s0_p2.jpg" alt="ETH3D MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/eth3d_s0_p3.jpg" alt="ETH3D DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/eth3d_s0_p4.jpg" alt="ETH3D Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/eth3d_s0_p5.jpg" alt="ETH3D Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/eth3d_s1_p0.jpg" alt="ETH3D Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/eth3d_s1_p1.jpg" alt="ETH3D IGEV++" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/eth3d_s1_p2.jpg" alt="ETH3D MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/eth3d_s1_p3.jpg" alt="ETH3D DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/eth3d_s1_p4.jpg" alt="ETH3D Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/eth3d_s1_p5.jpg" alt="ETH3D Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/eth3d_s2_p0.jpg" alt="ETH3D Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/eth3d_s2_p1.jpg" alt="ETH3D IGEV++" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/eth3d_s2_p2.jpg" alt="ETH3D MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/eth3d_s2_p3.jpg" alt="ETH3D DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/eth3d_s2_p4.jpg" alt="ETH3D Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/eth3d_s2_p5.jpg" alt="ETH3D Ours" loading="lazy">
+        </div>
       </div>
+      <figcaption><strong>ETH3D.</strong> Industrial interiors with thin pipes, low-light building exteriors, and dense outdoor vegetation. Baselines lose thin-structure continuity and produce large-area errors in dark regions; LinStereo preserves fine detail and stays stable under low light.</figcaption>
+    </figure>
+    <figure class="figure gallery__item" data-fig="kitti2012">
+      <div class="panelset" style="--cols:6">
+        <div class="panelset__head">
+          <span>Input</span>
+          <span>FoundationStereo</span>
+          <span>MGStereo</span>
+          <span>DeFOM-Stereo</span>
+          <span>Stereo Anywhere</span>
+          <span class="is-ours">Ours</span>
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s0_p0.jpg" alt="KITTI 2012 Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s0_p1.jpg" alt="KITTI 2012 FoundationStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s0_p2.jpg" alt="KITTI 2012 MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s0_p3.jpg" alt="KITTI 2012 DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s0_p4.jpg" alt="KITTI 2012 Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/kitti2012_s0_p5.jpg" alt="KITTI 2012 Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s1_p0.jpg" alt="KITTI 2012 Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s1_p1.jpg" alt="KITTI 2012 FoundationStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s1_p2.jpg" alt="KITTI 2012 MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s1_p3.jpg" alt="KITTI 2012 DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s1_p4.jpg" alt="KITTI 2012 Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/kitti2012_s1_p5.jpg" alt="KITTI 2012 Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s2_p0.jpg" alt="KITTI 2012 Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s2_p1.jpg" alt="KITTI 2012 FoundationStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s2_p2.jpg" alt="KITTI 2012 MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s2_p3.jpg" alt="KITTI 2012 DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s2_p4.jpg" alt="KITTI 2012 Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/kitti2012_s2_p5.jpg" alt="KITTI 2012 Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s3_p0.jpg" alt="KITTI 2012 Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s3_p1.jpg" alt="KITTI 2012 FoundationStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s3_p2.jpg" alt="KITTI 2012 MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s3_p3.jpg" alt="KITTI 2012 DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2012_s3_p4.jpg" alt="KITTI 2012 Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/kitti2012_s3_p5.jpg" alt="KITTI 2012 Ours" loading="lazy">
+        </div>
+      </div>
+      <figcaption><strong>KITTI 2012.</strong> Four street scenes. LinStereo yields sharper vehicle boundaries and preserves thin structures &mdash; poles, traffic signs &mdash; that competing methods blur or fragment (red boxes).</figcaption>
+    </figure>
+    <figure class="figure gallery__item" data-fig="kitti2015">
+      <div class="panelset" style="--cols:6">
+        <div class="panelset__head">
+          <span>Input</span>
+          <span>IGEV++</span>
+          <span>MGStereo</span>
+          <span>DeFOM-Stereo</span>
+          <span>Stereo Anywhere</span>
+          <span class="is-ours">Ours</span>
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s0_p0.jpg" alt="KITTI 2015 Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s0_p1.jpg" alt="KITTI 2015 IGEV++" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s0_p2.jpg" alt="KITTI 2015 MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s0_p3.jpg" alt="KITTI 2015 DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s0_p4.jpg" alt="KITTI 2015 Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/kitti2015_s0_p5.jpg" alt="KITTI 2015 Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s1_p0.jpg" alt="KITTI 2015 Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s1_p1.jpg" alt="KITTI 2015 IGEV++" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s1_p2.jpg" alt="KITTI 2015 MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s1_p3.jpg" alt="KITTI 2015 DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s1_p4.jpg" alt="KITTI 2015 Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/kitti2015_s1_p5.jpg" alt="KITTI 2015 Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s2_p0.jpg" alt="KITTI 2015 Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s2_p1.jpg" alt="KITTI 2015 IGEV++" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s2_p2.jpg" alt="KITTI 2015 MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s2_p3.jpg" alt="KITTI 2015 DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s2_p4.jpg" alt="KITTI 2015 Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/kitti2015_s2_p5.jpg" alt="KITTI 2015 Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s3_p0.jpg" alt="KITTI 2015 Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s3_p1.jpg" alt="KITTI 2015 IGEV++" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s3_p2.jpg" alt="KITTI 2015 MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s3_p3.jpg" alt="KITTI 2015 DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/kitti2015_s3_p4.jpg" alt="KITTI 2015 Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/kitti2015_s3_p5.jpg" alt="KITTI 2015 Ours" loading="lazy">
+        </div>
+      </div>
+      <figcaption><strong>KITTI 2015.</strong> LinStereo recovers small distant objects and road-level structure such as guard rails that the baselines over-smooth or miss (red boxes).</figcaption>
+    </figure>
     </div>
-
-    <p class="caption reveal">Figures reproduced from the paper's supplementary material; the first SeaStereo grid appears in the <a href="#dataset">Dataset</a> section above. See the paper for full discussion.</p>
+  </div>
+  <div class="gallery__group reveal">
+    <h3 class="subhead">Underwater &amp; synthetic</h3>
+    <div class="tabs" data-gallery="uw" role="tablist" aria-label="Underwater &amp; synthetic">
+      <button class="tab is-active" data-fig="tartanair1" role="tab" aria-selected="true">TartanAir-UW&nbsp;&#9312;</button>
+      <button class="tab" data-fig="tartanair2" role="tab" aria-selected="false">TartanAir-UW&nbsp;&#9313;</button>
+      <button class="tab" data-fig="squid" role="tab" aria-selected="false">SQUID</button>
+      <button class="tab" data-fig="seastereo" role="tab" aria-selected="false">SeaStereo</button>
+    </div>
+    <div class="gallery" data-gallery="uw">
+    <figure class="figure gallery__item is-active" data-fig="tartanair1">
+      <div class="panelset" style="--cols:6">
+        <div class="panelset__head">
+          <span>Input</span>
+          <span>FoundationStereo</span>
+          <span>MGStereo</span>
+          <span>DeFOM-Stereo</span>
+          <span>Stereo Anywhere</span>
+          <span class="is-ours">Ours</span>
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/tartanair1_s0_p0.jpg" alt="TartanAir-UW Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair1_s0_p1.jpg" alt="TartanAir-UW FoundationStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair1_s0_p2.jpg" alt="TartanAir-UW MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair1_s0_p3.jpg" alt="TartanAir-UW DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair1_s0_p4.jpg" alt="TartanAir-UW Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/tartanair1_s0_p5.jpg" alt="TartanAir-UW Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/tartanair1_s1_p0.jpg" alt="TartanAir-UW Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair1_s1_p1.jpg" alt="TartanAir-UW FoundationStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair1_s1_p2.jpg" alt="TartanAir-UW MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair1_s1_p3.jpg" alt="TartanAir-UW DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair1_s1_p4.jpg" alt="TartanAir-UW Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/tartanair1_s1_p5.jpg" alt="TartanAir-UW Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/tartanair1_s2_p0.jpg" alt="TartanAir-UW Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair1_s2_p1.jpg" alt="TartanAir-UW FoundationStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair1_s2_p2.jpg" alt="TartanAir-UW MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair1_s2_p3.jpg" alt="TartanAir-UW DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair1_s2_p4.jpg" alt="TartanAir-UW Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/tartanair1_s2_p5.jpg" alt="TartanAir-UW Ours" loading="lazy">
+        </div>
+      </div>
+      <figcaption><strong>TartanAir-UW &#9312;.</strong> Simulated underwater scenes (rocky seafloor, an underwater cliff, a coral reef). Baselines overestimate depth in backscatter-affected distant regions and lose small foreground objects; LinStereo preserves accurate near-to-far transitions and resolves individual object depth.</figcaption>
+    </figure>
+    <figure class="figure gallery__item" data-fig="tartanair2">
+      <div class="panelset" style="--cols:6">
+        <div class="panelset__head">
+          <span>Input</span>
+          <span>FoundationStereo</span>
+          <span>MGStereo</span>
+          <span>DeFOM-Stereo</span>
+          <span>Stereo Anywhere</span>
+          <span class="is-ours">Ours</span>
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/tartanair2_s0_p0.jpg" alt="TartanAir-UW Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair2_s0_p1.jpg" alt="TartanAir-UW FoundationStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair2_s0_p2.jpg" alt="TartanAir-UW MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair2_s0_p3.jpg" alt="TartanAir-UW DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair2_s0_p4.jpg" alt="TartanAir-UW Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/tartanair2_s0_p5.jpg" alt="TartanAir-UW Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/tartanair2_s1_p0.jpg" alt="TartanAir-UW Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair2_s1_p1.jpg" alt="TartanAir-UW FoundationStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair2_s1_p2.jpg" alt="TartanAir-UW MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair2_s1_p3.jpg" alt="TartanAir-UW DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair2_s1_p4.jpg" alt="TartanAir-UW Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/tartanair2_s1_p5.jpg" alt="TartanAir-UW Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/tartanair2_s2_p0.jpg" alt="TartanAir-UW Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair2_s2_p1.jpg" alt="TartanAir-UW FoundationStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair2_s2_p2.jpg" alt="TartanAir-UW MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair2_s2_p3.jpg" alt="TartanAir-UW DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/tartanair2_s2_p4.jpg" alt="TartanAir-UW Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/tartanair2_s2_p5.jpg" alt="TartanAir-UW Ours" loading="lazy">
+        </div>
+      </div>
+      <figcaption><strong>TartanAir-UW &#9313;.</strong> Severe scattering and low visibility. Baselines show depth collapse, blocky artifacts, or over-smoothing that erases terrain; LinStereo recovers coherent depth gradients and detects small foreground objects in extremely degraded conditions.</figcaption>
+    </figure>
+    <figure class="figure gallery__item" data-fig="squid">
+      <div class="panelset" style="--cols:6">
+        <div class="panelset__head">
+          <span>Input</span>
+          <span>FoundationStereo</span>
+          <span>MGStereo</span>
+          <span>DeFOM-Stereo</span>
+          <span>Stereo Anywhere</span>
+          <span class="is-ours">Ours</span>
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/squid_s0_p0.jpg" alt="SQUID Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/squid_s0_p1.jpg" alt="SQUID FoundationStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/squid_s0_p2.jpg" alt="SQUID MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/squid_s0_p3.jpg" alt="SQUID DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/squid_s0_p4.jpg" alt="SQUID Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/squid_s0_p5.jpg" alt="SQUID Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/squid_s1_p0.jpg" alt="SQUID Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/squid_s1_p1.jpg" alt="SQUID FoundationStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/squid_s1_p2.jpg" alt="SQUID MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/squid_s1_p3.jpg" alt="SQUID DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/squid_s1_p4.jpg" alt="SQUID Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/squid_s1_p5.jpg" alt="SQUID Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/squid_s2_p0.jpg" alt="SQUID Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/squid_s2_p1.jpg" alt="SQUID FoundationStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/squid_s2_p2.jpg" alt="SQUID MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/squid_s2_p3.jpg" alt="SQUID DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/squid_s2_p4.jpg" alt="SQUID Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/squid_s2_p5.jpg" alt="SQUID Ours" loading="lazy">
+        </div>
+      </div>
+      <figcaption><strong>SQUID (real-world).</strong> Shallow sandy seafloor, near-field coral and rock, man-made equipment. Under strong color attenuation the baselines show depth-scale inconsistencies and bleeding; LinStereo keeps stable depth and recovers fine detail. Black = unavailable depth.</figcaption>
+    </figure>
+    <figure class="figure gallery__item" data-fig="seastereo">
+      <div class="panelset" style="--cols:9">
+        <div class="panelset__head">
+          <span>Input</span>
+          <span>Right</span>
+          <span>GT</span>
+          <span>IGEV++</span>
+          <span>MGStereo</span>
+          <span>FoundationStereo</span>
+          <span>DeFOM-Stereo</span>
+          <span>Stereo Anywhere</span>
+          <span class="is-ours">Ours</span>
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s0_p0.jpg" alt="SeaStereo Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s0_p1.jpg" alt="SeaStereo Right" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s0_p2.jpg" alt="SeaStereo GT" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s0_p3.jpg" alt="SeaStereo IGEV++" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s0_p4.jpg" alt="SeaStereo MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s0_p5.jpg" alt="SeaStereo FoundationStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s0_p6.jpg" alt="SeaStereo DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s0_p7.jpg" alt="SeaStereo Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/seastereo_s0_p8.jpg" alt="SeaStereo Ours" loading="lazy">
+        </div>
+        <div class="panelrow">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s1_p0.jpg" alt="SeaStereo Input" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s1_p1.jpg" alt="SeaStereo Right" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s1_p2.jpg" alt="SeaStereo GT" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s1_p3.jpg" alt="SeaStereo IGEV++" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s1_p4.jpg" alt="SeaStereo MGStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s1_p5.jpg" alt="SeaStereo FoundationStereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s1_p6.jpg" alt="SeaStereo DeFOM-Stereo" loading="lazy">
+          <img class="panelrow__img" src="static/images/panels/seastereo_s1_p7.jpg" alt="SeaStereo Stereo Anywhere" loading="lazy">
+          <img class="panelrow__img is-ours" src="static/images/panels/seastereo_s1_p8.jpg" alt="SeaStereo Ours" loading="lazy">
+        </div>
+      </div>
+      <figcaption><strong>SeaStereo (synthetic).</strong> Left, right, and ground truth, then five baselines and LinStereo (Ours). Baselines show edge noise or shape distortion on elongated structures and over-smooth vegetation, losing depth layering; LinStereo preserves sharp object contours and foreground&ndash;background separation.</figcaption>
+    </figure>
+    </div>
+  </div>
+  <p class="caption reveal">Reproduced from the paper's supplementary material. See the paper for full discussion.</p>
   </div>
 </section>
 
