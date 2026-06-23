@@ -37,10 +37,9 @@
       <a href="#abstract">Abstract</a>
       <a href="#method">Method</a>
       <a href="#comparisons">Comparisons</a>
-      <a href="#underwater">Underwater</a>
-      <a href="#realworld">Real&#8209;World</a>
       <a href="#dataset">Dataset</a>
       <a href="#supplementary">More&nbsp;Results</a>
+      <a href="#results">Benchmarks</a>
       <a href="#bibtex">BibTeX</a>
     </nav>
   </div>
@@ -54,7 +53,7 @@
     <p class="hero__badge">ECCV 2026</p>
     <h1 class="hero__title">LinStereo</h1>
     <p class="hero__subtitle">Linear-Complexity Global Attention for Multi-Scale Iterative Stereo Matching</p>
-    <p class="hero__tagline">Zero-shot underwater stereo depth from a <strong>frozen Depth Anything&nbsp;V3</strong> backbone &mdash; global context at <strong>linear</strong> cost.</p>
+    <p class="hero__tagline">Linear-complexity global attention for iterative stereo on a <strong>frozen Depth Anything&nbsp;V3</strong> backbone &mdash; strong on standard benchmarks and zero-shot to new domains, including underwater.</p>
 
     <div class="authors">
       <span class="author"><a href="#" >Yiran Wang</a></span>
@@ -156,8 +155,8 @@
         <div class="stat__label">Occluded EPE &mdash; Middlebury(H)</div>
       </div>
     </div>
-    <p class="stats__note reveal">Best on <strong>both</strong> underwater benchmarks with a <strong>ViT-B</strong> backbone trained on <strong>SceneFlow only</strong> &mdash;
-      no underwater, real-world, or domain-specific data at any training stage.</p>
+    <p class="stats__note reveal">Competitive with ViT-L systems on standard benchmarks and best on underwater generalization &mdash; all from a
+      <strong>ViT-B</strong> backbone trained on <strong>SceneFlow only</strong>, with no underwater, real-world, or domain-specific data at any stage.</p>
   </div>
 </section>
 
@@ -303,6 +302,135 @@
   </div>
 </section>
 
+
+
+
+<!-- ================= DATASET ================= -->
+<section class="section section--soft" id="dataset">
+  <div class="container">
+    <h2 class="section__title">SeaStereo Dataset</h2>
+    <p class="lead lead--center reveal">A physically-rendered underwater stereo corpus with dense disparity ground truth,
+      released with the paper.</p>
+
+    <div class="dstats reveal">
+      <div><span>~40K</span>stereo pairs</div>
+      <div><span>7</span>Jerlov water types</div>
+      <div><span>1000+</span>configurations</div>
+      <div><span>dense</span>GT disparity</div>
+    </div>
+
+    <div class="split reveal">
+      <figure class="figure">
+        <img src="static/images/dataset_pipeline.png" alt="SeaStereo rendering pipeline: ShapeNet objects composited over marine backgrounds in Blender under Jerlov water models." loading="lazy" />
+        <figcaption><strong>Pipeline.</strong> ShapeNetCore foreground objects composited over real marine backgrounds
+          (coral, fish, shipwrecks) and rendered in Blender under varying Jerlov water types.</figcaption>
+      </figure>
+      <figure class="figure">
+        <img src="static/images/dataset_samples.png" alt="Sample renders from the SeaStereo dataset." loading="lazy" />
+        <figcaption><strong>Samples.</strong> 1008 configurations &times; multiple trajectories, focal lengths, and
+          inter-ocular distances, with random seafloor depth.</figcaption>
+      </figure>
+    </div>
+
+    <figure class="figure figure--inset reveal">
+      <img src="static/images/benchmark_vis.jpg" alt="Condition-stratified SeaStereo visual results." loading="lazy" />
+      <figcaption><strong>Condition-stratified results</strong> across water types and depths.</figcaption>
+    </figure>
+
+    <h3 class="subhead reveal">More dataset samples</h3>
+    <p class="caption reveal">Each card shows the <strong>left</strong> &amp; <strong>right</strong> stereo views and the dense <strong>disparity</strong>
+      ground truth, spanning Jerlov water types I&ndash;3C, seafloor depths, and camera configurations.</p>
+    <div class="montage reveal">
+      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m01_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m01_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m01_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov IA &middot; shallow</div></div>
+      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m02_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m02_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m02_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov IB &middot; shallow</div></div>
+      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m03_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m03_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m03_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov IC &middot; shallow</div></div>
+      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m04_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m04_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m04_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov 3C &middot; shallow</div></div>
+      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m05_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m05_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m05_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov IB &middot; shallow</div></div>
+      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m06_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m06_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m06_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov II &middot; shallow</div></div>
+      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m07_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m07_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m07_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov IB &middot; deep</div></div>
+      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m08_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m08_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m08_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov I &middot; deep</div></div>
+      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m09_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m09_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m09_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov II &middot; deep</div></div>
+      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m10_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m10_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m10_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov I &middot; deep</div></div>
+      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m11_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m11_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m11_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov IA &middot; deep</div></div>
+      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m12_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m12_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m12_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov IB &middot; shallow</div></div>
+    </div>
+
+    <div class="center reveal">
+      <a class="btn" href="#" title="Dataset download (coming soon)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Download SeaStereo <span class="pill__soon">soon</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SUPPLEMENTARY ================= -->
+<section class="section section--soft" id="supplementary">
+  <div class="container">
+    <h2 class="section__title">More qualitative results</h2>
+    <p class="lead lead--center reveal">Additional per-benchmark comparisons from the supplementary material. Pick a benchmark &mdash;
+      each panel shows the input alongside recent baselines and <strong>LinStereo (Ours)</strong>.</p>
+
+    <div class="gallery__group reveal">
+      <h3 class="subhead">Standard benchmarks</h3>
+      <div class="tabs" data-gallery="std" role="tablist" aria-label="Standard benchmark">
+        <button class="tab is-active" data-fig="booster" role="tab" aria-selected="true">Booster</button>
+        <button class="tab" data-fig="eth3d" role="tab" aria-selected="false">ETH3D</button>
+        <button class="tab" data-fig="kitti2012" role="tab" aria-selected="false">KITTI&#8217;12</button>
+        <button class="tab" data-fig="kitti2015" role="tab" aria-selected="false">KITTI&#8217;15</button>
+      </div>
+      <div class="gallery" data-gallery="std">
+        <figure class="figure gallery__item is-active" data-fig="booster">
+          <img src="static/images/supp_booster.jpg" alt="Booster qualitative comparison across six methods on glass, metal, and appliance scenes; LinStereo recovers cleaner non-Lambertian surfaces." loading="lazy" />
+          <figcaption><strong>Booster (Q).</strong> Transparent glass bottles, a specular metallic sink, and reflective appliances, where the target depth is the physical surface rather than what is seen through transparent objects. Competing methods bleed depth around glass and leave noise on specular metal, while LinStereo recovers clean contours and consistent surface depth (red boxes).</figcaption>
+        </figure>
+        <figure class="figure gallery__item" data-fig="eth3d">
+          <img src="static/images/supp_eth3d.jpg" alt="ETH3D comparison on thin pipes, dark building, and vegetation; LinStereo preserves thin structures and stays stable in low light." loading="lazy" />
+          <figcaption><strong>ETH3D.</strong> Industrial interiors with thin pipes, low-light building exteriors, and dense outdoor vegetation. Baselines lose thin-structure continuity and produce large-area errors in dark regions, while LinStereo preserves fine detail and stays stable under low light (cyan boxes).</figcaption>
+        </figure>
+        <figure class="figure gallery__item" data-fig="kitti2012">
+          <img src="static/images/supp_kitti2012.jpg" alt="KITTI 2012 comparison across four street scenes; LinStereo gives sharper vehicle boundaries and thin structures." loading="lazy" />
+          <figcaption><strong>KITTI 2012.</strong> Four street scenes comparing the left image with FoundationStereo, MGStereo, DeFOM-Stereo, Stereo Anywhere, and LinStereo (Ours). LinStereo yields sharper vehicle boundaries and preserves thin structures such as poles and traffic signs that competing methods blur or fragment (red boxes).</figcaption>
+        </figure>
+        <figure class="figure gallery__item" data-fig="kitti2015">
+          <img src="static/images/supp_kitti2015.jpg" alt="KITTI 2015 comparison across four scenes; LinStereo recovers distant objects and road-level structure." loading="lazy" />
+          <figcaption><strong>KITTI 2015.</strong> Compared against IGEV++, MGStereo, DeFOM-Stereo, and Stereo Anywhere, LinStereo recovers small distant objects and road-level structure such as guard rails that the baselines over-smooth or miss (red boxes).</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <div class="gallery__group reveal">
+      <h3 class="subhead">Underwater &amp; synthetic</h3>
+      <div class="tabs" data-gallery="uw" role="tablist" aria-label="Underwater benchmark">
+        <button class="tab is-active" data-fig="tartanair1" role="tab" aria-selected="true">TartanAir-UW&nbsp;&#9312;</button>
+        <button class="tab" data-fig="tartanair2" role="tab" aria-selected="false">TartanAir-UW&nbsp;&#9313;</button>
+        <button class="tab" data-fig="squid" role="tab" aria-selected="false">SQUID</button>
+        <button class="tab" data-fig="seasynth2" role="tab" aria-selected="false">SeaStereo</button>
+      </div>
+      <div class="gallery" data-gallery="uw">
+        <figure class="figure gallery__item is-active" data-fig="tartanair1">
+          <img src="static/images/supp_tartanair1.jpg" alt="TartanAir-UW comparison on seafloor, cliff, and reef scenes; LinStereo keeps accurate near-to-far depth." loading="lazy" />
+          <figcaption><strong>TartanAir-UW (1/2).</strong> Simulated underwater scenes (rocky seafloor, an underwater cliff with vegetation, a coral reef with fish). Baselines overestimate depth in backscatter-affected distant regions and lose small foreground objects, whereas LinStereo preserves accurate near-to-far depth transitions and resolves individual object depth (red boxes).</figcaption>
+        </figure>
+        <figure class="figure gallery__item" data-fig="tartanair2">
+          <img src="static/images/supp_tartanair2.jpg" alt="TartanAir-UW severe-degradation comparison; LinStereo recovers coherent depth where baselines collapse." loading="lazy" />
+          <figcaption><strong>TartanAir-UW (2/2).</strong> Severe scattering and low visibility. Baselines show depth collapse, blocky artifacts, or over-smoothing that erases terrain and vegetation, while LinStereo recovers coherent depth gradients and detects small foreground objects in extremely degraded conditions (red boxes).</figcaption>
+        </figure>
+        <figure class="figure gallery__item" data-fig="squid">
+          <img src="static/images/supp_squid.jpg" alt="SQUID real-world underwater comparison; LinStereo keeps stable depth and recovers fine detail." loading="lazy" />
+          <figcaption><strong>SQUID (real-world).</strong> Shallow sandy seafloor, near-field coral and rock, and man-made equipment. Under strong color attenuation the baselines show depth-scale inconsistencies, over-smoothed fine structures, and depth bleeding, while LinStereo keeps stable depth and recovers fine detail (red boxes). Black regions denote unavailable depth.</figcaption>
+        </figure>
+        <figure class="figure gallery__item" data-fig="seasynth2">
+          <img src="static/images/benchmark_vis_jerlov.jpg" alt="SeaStereo synthetic comparison with left/right/GT and six methods; LinStereo preserves sharp contours and depth layering." loading="lazy" />
+          <figcaption><strong>SeaStereo (synthetic).</strong> Columns: left, right, ground truth, then IGEV++, MGStereo, FoundationStereo, DEFOM-Stereo, Stereo Anywhere, and LinStereo (Ours). Baselines show edge noise or shape distortion on elongated structures and over-smooth vegetation, losing depth layering, while LinStereo preserves sharp object contours and foreground&ndash;background separation (red boxes).</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <p class="caption reveal">Figures reproduced from the paper's supplementary material; the first SeaStereo grid appears in the <a href="#dataset">Dataset</a> section above. See the paper for full discussion.</p>
+  </div>
+</section>
+
 <!-- ================= STANDARD BENCHMARKS TABLE ================= -->
 <section class="section" id="results">
   <div class="container">
@@ -434,131 +562,6 @@
   </div>
 </section>
 
-<!-- ================= DATASET ================= -->
-<section class="section section--soft" id="dataset">
-  <div class="container">
-    <h2 class="section__title">SeaStereo Dataset</h2>
-    <p class="lead lead--center reveal">A physically-rendered underwater stereo corpus with dense disparity ground truth,
-      released with the paper.</p>
-
-    <div class="dstats reveal">
-      <div><span>~40K</span>stereo pairs</div>
-      <div><span>7</span>Jerlov water types</div>
-      <div><span>1000+</span>configurations</div>
-      <div><span>dense</span>GT disparity</div>
-    </div>
-
-    <div class="split reveal">
-      <figure class="figure">
-        <img src="static/images/dataset_pipeline.png" alt="SeaStereo rendering pipeline: ShapeNet objects composited over marine backgrounds in Blender under Jerlov water models." loading="lazy" />
-        <figcaption><strong>Pipeline.</strong> ShapeNetCore foreground objects composited over real marine backgrounds
-          (coral, fish, shipwrecks) and rendered in Blender under varying Jerlov water types.</figcaption>
-      </figure>
-      <figure class="figure">
-        <img src="static/images/dataset_samples.png" alt="Sample renders from the SeaStereo dataset." loading="lazy" />
-        <figcaption><strong>Samples.</strong> 1008 configurations &times; multiple trajectories, focal lengths, and
-          inter-ocular distances, with random seafloor depth.</figcaption>
-      </figure>
-    </div>
-
-    <figure class="figure figure--inset reveal">
-      <img src="static/images/benchmark_vis.jpg" alt="Condition-stratified SeaStereo visual results." loading="lazy" />
-      <figcaption><strong>Condition-stratified results</strong> across water types and depths.</figcaption>
-    </figure>
-
-    <h3 class="subhead reveal">More dataset samples</h3>
-    <p class="caption reveal">Each card shows the <strong>left</strong> &amp; <strong>right</strong> stereo views and the dense <strong>disparity</strong>
-      ground truth, spanning Jerlov water types I&ndash;3C, seafloor depths, and camera configurations.</p>
-    <div class="montage reveal">
-      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m01_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m01_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m01_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov IA &middot; shallow</div></div>
-      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m02_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m02_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m02_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov IB &middot; shallow</div></div>
-      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m03_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m03_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m03_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov IC &middot; shallow</div></div>
-      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m04_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m04_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m04_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov 3C &middot; shallow</div></div>
-      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m05_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m05_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m05_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov IB &middot; shallow</div></div>
-      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m06_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m06_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m06_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov II &middot; shallow</div></div>
-      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m07_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m07_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m07_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov IB &middot; deep</div></div>
-      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m08_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m08_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m08_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov I &middot; deep</div></div>
-      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m09_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m09_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m09_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov II &middot; deep</div></div>
-      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m10_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m10_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m10_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov I &middot; deep</div></div>
-      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m11_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m11_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m11_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov IA &middot; deep</div></div>
-      <div class="montage__card"><div class="montage__hdr"><span>Left</span><span>Right</span><span>Disp.</span></div><div class="montage__trip"><img src="static/images/montage/m12_L.jpg" alt="" loading="lazy"><img src="static/images/montage/m12_R.jpg" alt="" loading="lazy"><img src="static/images/montage/m12_D.jpg" alt="" loading="lazy"></div><div class="montage__cap">Jerlov IB &middot; shallow</div></div>
-    </div>
-
-    <div class="center reveal">
-      <a class="btn" href="#" title="Dataset download (coming soon)">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        Download SeaStereo <span class="pill__soon">soon</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ================= SUPPLEMENTARY ================= -->
-<section class="section section--soft" id="supplementary">
-  <div class="container">
-    <h2 class="section__title">More qualitative results</h2>
-    <p class="lead lead--center reveal">Additional per-benchmark comparisons from the supplementary material. Pick a benchmark &mdash;
-      each panel shows the input alongside recent baselines and <strong>LinStereo (Ours)</strong>.</p>
-
-    <div class="gallery__group reveal">
-      <h3 class="subhead">Standard benchmarks</h3>
-      <div class="tabs" data-gallery="std" role="tablist" aria-label="Standard benchmark">
-        <button class="tab is-active" data-fig="booster" role="tab" aria-selected="true">Booster</button>
-        <button class="tab" data-fig="eth3d" role="tab" aria-selected="false">ETH3D</button>
-        <button class="tab" data-fig="kitti2012" role="tab" aria-selected="false">KITTI&#8217;12</button>
-        <button class="tab" data-fig="kitti2015" role="tab" aria-selected="false">KITTI&#8217;15</button>
-      </div>
-      <div class="gallery" data-gallery="std">
-        <figure class="figure gallery__item is-active" data-fig="booster">
-          <img src="static/images/supp_booster.jpg" alt="Booster qualitative comparison across six methods on glass, metal, and appliance scenes; LinStereo recovers cleaner non-Lambertian surfaces." loading="lazy" />
-          <figcaption><strong>Booster (Q).</strong> Transparent glass bottles, a specular metallic sink, and reflective appliances, where the target depth is the physical surface rather than what is seen through transparent objects. Competing methods bleed depth around glass and leave noise on specular metal, while LinStereo recovers clean contours and consistent surface depth (red boxes).</figcaption>
-        </figure>
-        <figure class="figure gallery__item" data-fig="eth3d">
-          <img src="static/images/supp_eth3d.jpg" alt="ETH3D comparison on thin pipes, dark building, and vegetation; LinStereo preserves thin structures and stays stable in low light." loading="lazy" />
-          <figcaption><strong>ETH3D.</strong> Industrial interiors with thin pipes, low-light building exteriors, and dense outdoor vegetation. Baselines lose thin-structure continuity and produce large-area errors in dark regions, while LinStereo preserves fine detail and stays stable under low light (cyan boxes).</figcaption>
-        </figure>
-        <figure class="figure gallery__item" data-fig="kitti2012">
-          <img src="static/images/supp_kitti2012.jpg" alt="KITTI 2012 comparison across four street scenes; LinStereo gives sharper vehicle boundaries and thin structures." loading="lazy" />
-          <figcaption><strong>KITTI 2012.</strong> Four street scenes comparing the left image with FoundationStereo, MGStereo, DeFOM-Stereo, Stereo Anywhere, and LinStereo (Ours). LinStereo yields sharper vehicle boundaries and preserves thin structures such as poles and traffic signs that competing methods blur or fragment (red boxes).</figcaption>
-        </figure>
-        <figure class="figure gallery__item" data-fig="kitti2015">
-          <img src="static/images/supp_kitti2015.jpg" alt="KITTI 2015 comparison across four scenes; LinStereo recovers distant objects and road-level structure." loading="lazy" />
-          <figcaption><strong>KITTI 2015.</strong> Compared against IGEV++, MGStereo, DeFOM-Stereo, and Stereo Anywhere, LinStereo recovers small distant objects and road-level structure such as guard rails that the baselines over-smooth or miss (red boxes).</figcaption>
-        </figure>
-      </div>
-    </div>
-
-    <div class="gallery__group reveal">
-      <h3 class="subhead">Underwater &amp; synthetic</h3>
-      <div class="tabs" data-gallery="uw" role="tablist" aria-label="Underwater benchmark">
-        <button class="tab is-active" data-fig="tartanair1" role="tab" aria-selected="true">TartanAir-UW&nbsp;&#9312;</button>
-        <button class="tab" data-fig="tartanair2" role="tab" aria-selected="false">TartanAir-UW&nbsp;&#9313;</button>
-        <button class="tab" data-fig="squid" role="tab" aria-selected="false">SQUID</button>
-        <button class="tab" data-fig="seasynth2" role="tab" aria-selected="false">SeaStereo</button>
-      </div>
-      <div class="gallery" data-gallery="uw">
-        <figure class="figure gallery__item is-active" data-fig="tartanair1">
-          <img src="static/images/supp_tartanair1.jpg" alt="TartanAir-UW comparison on seafloor, cliff, and reef scenes; LinStereo keeps accurate near-to-far depth." loading="lazy" />
-          <figcaption><strong>TartanAir-UW (1/2).</strong> Simulated underwater scenes (rocky seafloor, an underwater cliff with vegetation, a coral reef with fish). Baselines overestimate depth in backscatter-affected distant regions and lose small foreground objects, whereas LinStereo preserves accurate near-to-far depth transitions and resolves individual object depth (red boxes).</figcaption>
-        </figure>
-        <figure class="figure gallery__item" data-fig="tartanair2">
-          <img src="static/images/supp_tartanair2.jpg" alt="TartanAir-UW severe-degradation comparison; LinStereo recovers coherent depth where baselines collapse." loading="lazy" />
-          <figcaption><strong>TartanAir-UW (2/2).</strong> Severe scattering and low visibility. Baselines show depth collapse, blocky artifacts, or over-smoothing that erases terrain and vegetation, while LinStereo recovers coherent depth gradients and detects small foreground objects in extremely degraded conditions (red boxes).</figcaption>
-        </figure>
-        <figure class="figure gallery__item" data-fig="squid">
-          <img src="static/images/supp_squid.jpg" alt="SQUID real-world underwater comparison; LinStereo keeps stable depth and recovers fine detail." loading="lazy" />
-          <figcaption><strong>SQUID (real-world).</strong> Shallow sandy seafloor, near-field coral and rock, and man-made equipment. Under strong color attenuation the baselines show depth-scale inconsistencies, over-smoothed fine structures, and depth bleeding, while LinStereo keeps stable depth and recovers fine detail (red boxes). Black regions denote unavailable depth.</figcaption>
-        </figure>
-        <figure class="figure gallery__item" data-fig="seasynth2">
-          <img src="static/images/benchmark_vis_jerlov.jpg" alt="SeaStereo synthetic comparison with left/right/GT and six methods; LinStereo preserves sharp contours and depth layering." loading="lazy" />
-          <figcaption><strong>SeaStereo (synthetic).</strong> Columns: left, right, ground truth, then IGEV++, MGStereo, FoundationStereo, DEFOM-Stereo, Stereo Anywhere, and LinStereo (Ours). Baselines show edge noise or shape distortion on elongated structures and over-smooth vegetation, losing depth layering, while LinStereo preserves sharp object contours and foreground&ndash;background separation (red boxes).</figcaption>
-        </figure>
-      </div>
-    </div>
-
-    <p class="caption reveal">Figures reproduced from the paper's supplementary material; the first SeaStereo grid appears in the <a href="#dataset">Dataset</a> section above. See the paper for full discussion.</p>
-  </div>
-</section>
 
 <!-- ================= BIBTEX ================= -->
 <section class="section" id="bibtex">
