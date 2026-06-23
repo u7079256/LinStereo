@@ -764,6 +764,17 @@
         Download SeaStereo <span class="pill__soon">soon</span>
       </a>
     </div>
+
+    <h3 class="subhead reveal">Water-condition explorer</h3>
+    <p class="lead lead--center reveal">Hold the method fixed, change the water. As turbidity and depth climb, LinStereo holds.</p>
+    <div class="tabs" id="condTabs" role="tablist" aria-label="Water condition">
+      <button class="tab is-active" data-cond="clear_shallow" role="tab" aria-selected="true">Clear &middot; shallow</button>
+      <button class="tab" data-cond="clear_deep" role="tab" aria-selected="false">Clear &middot; deep</button>
+      <button class="tab" data-cond="murky_shallow" role="tab" aria-selected="false">Murky &middot; shallow</button>
+    </div>
+    <figure class="figure figure--inset reveal">
+      <img id="condImg" src="static/images/cond_clear_shallow.jpg" alt="LinStereo result under varying water conditions" loading="lazy" />
+    </figure>
   </div>
 </section>
 
@@ -851,18 +862,6 @@
     <p class="caption caption--light reveal">The largest gains track each benchmark's dominant degradation:
       <strong>31% lower RMSE</strong> than FoundationStereo on TartanAir-UW (long-range backscatter) and
       <strong>33% lower Rel</strong> than IGEV++ on SQUID (near-field attenuation). Selected methods; full tables in the paper.</p>
-
-    <h3 class="subhead subhead--light reveal">Water-condition explorer</h3>
-    <p class="lead lead--center lead--light reveal">Hold the method fixed, change the water. As turbidity and depth climb,
-      LinStereo holds.</p>
-    <div class="tabs tabs--light" id="condTabs" role="tablist" aria-label="Water condition">
-      <button class="tab is-active" data-cond="clear_shallow" role="tab" aria-selected="true">Clear &middot; shallow</button>
-      <button class="tab" data-cond="clear_deep" role="tab" aria-selected="false">Clear &middot; deep</button>
-      <button class="tab" data-cond="murky_shallow" role="tab" aria-selected="false">Murky &middot; shallow</button>
-    </div>
-    <figure class="figure figure--inset reveal">
-      <img id="condImg" src="static/images/cond_clear_shallow.jpg" alt="LinStereo result under varying water conditions" loading="lazy" />
-    </figure>
   </div>
 </section>
 
