@@ -4,12 +4,12 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>LinStereo: Linear-Complexity Global Attention for Multi-Scale Iterative Stereo Matching</title>
-<meta name="description" content="LinStereo — a linear-complexity global-attention (PALA) decoder on a frozen Depth Anything 3 backbone for zero-shot underwater stereo depth estimation. ECCV 2026." />
+<meta name="description" content="LinStereo — a linear-complexity global-attention (PALA) decoder on a frozen Depth Anything V3 backbone for zero-shot underwater stereo depth estimation. ECCV 2026." />
 
 <!-- Open Graph / social -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="LinStereo: Linear-Complexity Global Attention for Stereo Matching" />
-<meta property="og:description" content="Zero-shot underwater stereo from a frozen Depth Anything 3 backbone. 9.8% lower AbsRel on TartanAir-UW, 24.3% on SQUID — trained on SceneFlow only." />
+<meta property="og:description" content="Zero-shot underwater stereo from a frozen Depth Anything V3 backbone. 9.8% lower AbsRel on TartanAir-UW, 24.3% on SQUID — trained on SceneFlow only." />
 <meta property="og:image" content="static/images/og_card.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -53,7 +53,7 @@
     <p class="hero__badge">ECCV 2026</p>
     <h1 class="hero__title">LinStereo</h1>
     <p class="hero__subtitle">Linear-Complexity Global Attention for Multi-Scale Iterative Stereo Matching</p>
-    <p class="hero__tagline">Zero-shot underwater stereo depth from a <strong>frozen Depth Anything&nbsp;3</strong> backbone &mdash; global context at <strong>linear</strong> cost.</p>
+    <p class="hero__tagline">Zero-shot underwater stereo depth from a <strong>frozen Depth Anything&nbsp;V3</strong> backbone &mdash; global context at <strong>linear</strong> cost.</p>
 
     <div class="authors">
       <span class="author"><a href="#" >Yiran Wang</a></span>
@@ -129,7 +129,7 @@
   <div class="container">
     <div class="tldr__card reveal">
       <svg class="tldr__bolt" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z" fill="currentColor"/></svg>
-      <p><strong>TL;DR.</strong> LinStereo redesigns the iterative stereo update loop around <strong>Position-Aware Linear Attention (PALA)</strong> &mdash; a global, <em>O(N)</em> operator on a frozen Depth&nbsp;Anything&nbsp;3 backbone &mdash; so reliable depth propagates across the whole image in a single step. It generalizes zero-shot to underwater scenes where local photometric cues collapse, while staying linear per iteration.</p>
+      <p><strong>TL;DR.</strong> LinStereo redesigns the iterative stereo update loop around <strong>Position-Aware Linear Attention (PALA)</strong> &mdash; a global, <em>O(N)</em> operator on a frozen Depth&nbsp;Anything&nbsp;V3 backbone &mdash; so reliable depth propagates across the whole image in a single step. It generalizes zero-shot to underwater scenes where local photometric cues collapse, while staying linear per iteration.</p>
     </div>
   </div>
 </section>
@@ -169,7 +169,7 @@
       pathways: multi-scale backbone features are collapsed into single-level correlations, geometric priors
       remain untapped at initialization, and context propagates only locally. These gaps widen under degraded
       photometric cues, making underwater scenes a stringent generalization test. To address this, we propose
-      <strong>LinStereo</strong>, built upon Depth&nbsp;Anything&nbsp;3, whose core is a
+      <strong>LinStereo</strong>, built upon Depth&nbsp;Anything&nbsp;V3, whose core is a
       <strong>Position-Aware Linear Attention (PALA)</strong> module that replaces local recurrence with global
       aggregation at linear cost, propagating reliable estimates from well-matched regions into degraded areas
       while preserving disparity structure. PALA is made effective by two enabling components:
@@ -195,9 +195,9 @@
     </p>
 
     <figure class="figure reveal">
-      <img src="static/images/architecture.png" alt="LinStereo architecture: frozen Depth Anything 3 backbone feeding Hierarchical Semantic Cost Volumes, Depth Prior Initialization, and the Position-Aware Linear Attention updater." loading="lazy" />
+      <img src="static/images/architecture.png" alt="LinStereo architecture: frozen Depth Anything V3 backbone feeding Hierarchical Semantic Cost Volumes, Depth Prior Initialization, and the Position-Aware Linear Attention updater." loading="lazy" />
       <figcaption>
-        <strong>Architecture.</strong> A frozen Depth&nbsp;Anything&nbsp;3 backbone (DINOv2 ViT-B/14 + Dual-DPT head)
+        <strong>Architecture.</strong> A frozen Depth&nbsp;Anything&nbsp;V3 backbone (DINOv2 ViT-B/14 + Dual-DPT head)
         produces, in a single forward pass, multi-scale stereo features and a monocular depth map. The PALA updater
         replaces the ConvGRU with global linear attention over cost-volume features, using 2D rotary position
         encoding and an adaptive gating branch.
@@ -328,14 +328,14 @@
           <tr><td class="tl">PSMNet</td><td>&ndash;</td><td>4.05</td><td>3.77</td><td>11.48</td><td>17.69</td><td>2.15</td><td>14.17</td></tr>
           <tr><td class="tl">RAFT-Stereo</td><td>&ndash;</td><td>1.13</td><td>0.90</td><td>1.92</td><td>3.31</td><td>0.36</td><td>4.18</td></tr>
           <tr><td class="tl">MGStereo</td><td>&ndash;</td><td>1.13</td><td>0.87</td><td>1.15</td><td>2.89</td><td>0.25</td><td>2.26</td></tr>
-          <tr><td class="tl">Stereo Anywhere <span class="vit">ViT-L</span></td><td>&ndash;</td><td>1.07</td><td>0.83</td><td>0.94</td><td>2.67</td><td>0.24</td><td>2.21</td></tr>
-          <tr><td class="tl">DEFOM-Stereo <span class="vit">ViT-L</span></td><td>&ndash;</td><td>1.06</td><td>0.84</td><td>0.84</td><td>2.11</td><td>0.35</td><td>3.52</td></tr>
-          <tr><td class="tl">MonSter <span class="vit">ViT-L</span></td><td>&ndash;</td><td><u>0.89</u></td><td><u>0.75</u></td><td>1.98</td><td>2.62</td><td><u>0.23</u></td><td>3.08</td></tr>
-          <tr><td class="tl">BridgeDepth <span class="vit">ViT-L</span></td><td>&ndash;</td><td>1.13</td><td>0.86</td><td>2.21</td><td>2.68</td><td>0.24</td><td>4.71</td></tr>
+          <tr><td class="tl">Stereo Anywhere <span class="vit">ViT-L</span></td><td>&ndash;</td><td>1.07</td><td>0.83</td><td>0.94</td><td>2.67</td><td><u>0.24</u></td><td><u>2.21</u></td></tr>
+          <tr><td class="tl">DEFOM-Stereo <span class="vit">ViT-L</span></td><td>&ndash;</td><td>1.06</td><td>0.84</td><td><u>0.84</u></td><td><u>2.11</u></td><td>0.35</td><td>3.52</td></tr>
+          <tr><td class="tl">MonSter <span class="vit">ViT-L</span></td><td>&ndash;</td><td><b>0.89</b></td><td><b>0.75</b></td><td>1.98</td><td>2.62</td><td><b>0.23</b></td><td>3.08</td></tr>
+          <tr><td class="tl">BridgeDepth <span class="vit">ViT-L</span></td><td>&ndash;</td><td>1.13</td><td>0.86</td><td>2.21</td><td>2.68</td><td><u>0.24</u></td><td>4.71</td></tr>
           <tr class="extra"><td class="tl">FoundationStereo <span class="vit">ViT-L</span></td><td>&#10003;</td><td>0.95</td><td>0.71</td><td>0.71</td><td>2.67</td><td>0.21</td><td>1.77</td></tr>
           <tr class="ours">
             <td class="tl">LinStereo <span class="vit">ViT-B (Ours)</span></td><td>&ndash;</td>
-            <td>1.01</td><td><u>0.76</u></td><td><b>0.83</b></td><td><b>1.33</b></td><td>0.24</td><td><b>2.14</b></td>
+            <td><u>1.01</u></td><td><u>0.76</u></td><td><b>0.83</b></td><td><b>1.33</b></td><td><u>0.24</u></td><td><b>2.14</b></td>
           </tr>
         </tbody>
       </table>
@@ -427,8 +427,7 @@
             </tbody>
           </table>
         </div>
-        <p class="caption">Robustness is further demonstrated on a BlueROV2 platform.
-          <span class="todo">TODO: embed BlueROV2 field clip.</span></p>
+        <p class="caption">LinStereo attains the lowest error on every metric on this near-range, fine-structure target.</p>
       </div>
     </div>
   </div>
@@ -499,7 +498,7 @@
 <footer class="footer">
   <div class="container">
     <p class="footer__ack"><strong>Acknowledgements.</strong> We thank Jay Zhang and Dr.&nbsp;Gideon Billings for collecting
-      the underwater dataset. <span class="todo">TODO: funding / compute acknowledgements.</span></p>
+      the underwater dataset.</p>
     <p class="footer__meta">
       Australian Centre for Robotics, The University of Sydney &middot; ECCV 2026<br>
       Page layout inspired by recent stereo &amp; depth project pages. Built as plain static files.
