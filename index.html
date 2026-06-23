@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>LinStereo: Linear-Complexity Global Attention for Multi-Scale Iterative Stereo Matching</title>
+<meta name="description" content="LinStereo — a linear-complexity global-attention (PALA) decoder on a frozen Depth Anything 3 backbone for zero-shot underwater stereo depth estimation. ECCV 2026." />
+
+<!-- Open Graph / social -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="LinStereo: Linear-Complexity Global Attention for Stereo Matching" />
+<meta property="og:description" content="Zero-shot underwater stereo from a frozen Depth Anything 3 backbone. 9.8% lower AbsRel on TartanAir-UW, 24.3% on SQUID — trained on SceneFlow only." />
+<meta property="og:image" content="static/images/og_card.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="icon" type="image/svg+xml" href="static/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="static/css/style.css" />
+</head>
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="nav__brand" href="#top" aria-label="LinStereo home">
+      <svg class="nav__glyph" viewBox="0 0 32 32" aria-hidden="true"><path d="M2 20c4 0 4-4 8-4s4 4 8 4 4-4 8-4M2 12c4 0 4-4 8-4s4 4 8 4 4-4 8-4M2 27c4 0 4-3 8-3s4 3 8 3 4-3 8-3" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      <span>LinStereo</span>
+    </a>
+    <button class="nav__burger" id="navBurger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="nav__links" id="navLinks">
+      <a href="#abstract">Abstract</a>
+      <a href="#method">Method</a>
+      <a href="#comparisons">Comparisons</a>
+      <a href="#underwater">Underwater</a>
+      <a href="#realworld">Real&#8209;World</a>
+      <a href="#dataset">Dataset</a>
+      <a href="#bibtex">BibTeX</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="hero__caustics" aria-hidden="true"></div>
+  <div class="hero__fade" aria-hidden="true"></div>
+  <div class="hero__content">
+    <p class="hero__badge">ECCV 2026</p>
+    <h1 class="hero__title">LinStereo</h1>
+    <p class="hero__subtitle">Linear-Complexity Global Attention for Multi-Scale Iterative Stereo Matching</p>
+    <p class="hero__tagline">Zero-shot underwater stereo depth from a <strong>frozen Depth Anything&nbsp;3</strong> backbone &mdash; global context at <strong>linear</strong> cost.</p>
+
+    <div class="authors">
+      <span class="author"><a href="#" >Yiran Wang</a></span>
+      <span class="author"><a href="#">Oliver Turner</a></span>
+      <span class="author"><a href="#">Viorela Ila</a><sup>&dagger;</sup></span>
+    </div>
+    <p class="affil">Australian Centre for Robotics, The University of Sydney &nbsp;&middot;&nbsp; <sup>&dagger;</sup>Corresponding author</p>
+
+    <div class="pills">
+      <!-- TODO: replace every href="#" with the real link before publishing -->
+      <a class="pill" href="#" title="arXiv (coming soon)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v2.5l-7 6.5 7 6.5V22H3v-2.5l7-6.5-7-6.5z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span>arXiv</span><span class="pill__soon">soon</span>
+      </a>
+      <a class="pill" href="#" title="Paper PDF (coming soon)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l4 4v16H6z" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M14 2v4h4M9 13h6M9 17h6M9 9h2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span>Paper</span><span class="pill__soon">soon</span>
+      </a>
+      <a class="pill" href="#" title="Code (coming soon)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3-.3 6.2-1.5 6.2-6.7A5.2 5.2 0 0 0 19.9 5 4.9 4.9 0 0 0 19.8 1.4S18.7 1 16 2.9a13.4 13.4 0 0 0-7 0C6.3 1 5.2 1.4 5.2 1.4A4.9 4.9 0 0 0 5.1 5a5.2 5.2 0 0 0-1.4 3.6c0 5.2 3.2 6.4 6.2 6.7a3.4 3.4 0 0 0-.9 2.6V22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span>Code</span><span class="pill__soon">soon</span>
+      </a>
+      <a class="pill" href="#" title="SeaStereo dataset (coming soon)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="5" rx="8" ry="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+        <span>SeaStereo</span><span class="pill__soon">soon</span>
+      </a>
+      <a class="pill" href="#" title="Video (coming soon)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10 9l5 3-5 3z" fill="currentColor"/></svg>
+        <span>Video</span><span class="pill__soon">soon</span>
+      </a>
+    </div>
+  </div>
+  <div class="hero__wave" aria-hidden="true">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0 60c180-50 360-50 540 0s360 50 540 0 220-40 360-30v100H0z" fill="#ffffff"/></svg>
+  </div>
+</section>
+
+<!-- ================= TEASER SLIDER ================= -->
+<section class="section section--tight" id="teaser">
+  <div class="container">
+    <div class="reveal">
+      <h2 class="eyebrow">Drag to reveal</h2>
+      <p class="lead">Underwater scattering and attenuation wreck the local photometric cues stereo relies on.
+        Drag the handle: a <strong>murky underwater input</strong> on one side, LinStereo's <strong>dense disparity</strong> on the other.</p>
+
+      <div class="cmp" id="cmpTeaser" data-scene="a">
+        <div class="cmp__frame">
+          <img class="cmp__img cmp__img--back" id="cmpBack" src="static/images/slider_a_depth.jpg" alt="LinStereo predicted disparity (turbo colormap)" />
+          <div class="cmp__clip" id="cmpClip">
+            <img class="cmp__img cmp__img--front" id="cmpFront" src="static/images/slider_a_input.jpg" alt="Underwater stereo input (left view)" />
+          </div>
+          <div class="cmp__label cmp__label--left">Underwater input</div>
+          <div class="cmp__label cmp__label--right">LinStereo disparity</div>
+          <div class="cmp__handle" id="cmpHandle" role="slider" aria-label="Reveal slider" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
+            <span class="cmp__handle-grip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l-4 6 4 6M15 6l4 6-4 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="tabs" id="teaserTabs" role="tablist" aria-label="Scene">
+        <button class="tab is-active" data-scene="a" role="tab" aria-selected="true">Jerlov&nbsp;IA &middot; shallow</button>
+        <button class="tab" data-scene="b" role="tab" aria-selected="false">Jerlov&nbsp;3C &middot; shallow</button>
+        <button class="tab" data-scene="c" role="tab" aria-selected="false">Jerlov&nbsp;II &middot; deep</button>
+      </div>
+      <p class="caption">SeaStereo samples (ShapeNet objects composited over real marine backgrounds, rendered under varying Jerlov water types).
+        LinStereo is trained on <strong>SceneFlow only</strong> &mdash; it has never seen underwater data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TL;DR ================= -->
+<section class="tldr">
+  <div class="container">
+    <div class="tldr__card reveal">
+      <svg class="tldr__bolt" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6z" fill="currentColor"/></svg>
+      <p><strong>TL;DR.</strong> LinStereo redesigns the iterative stereo update loop around <strong>Position-Aware Linear Attention (PALA)</strong> &mdash; a global, <em>O(N)</em> operator on a frozen Depth&nbsp;Anything&nbsp;3 backbone &mdash; so reliable depth propagates across the whole image in a single step. It generalizes zero-shot to underwater scenes where local photometric cues collapse, while staying linear per iteration.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HIGHLIGHTS ================= -->
+<section class="section section--soft" id="highlights">
+  <div class="container">
+    <div class="stats">
+      <div class="stat reveal">
+        <div class="stat__num">9.8%<span>&darr;</span></div>
+        <div class="stat__label">AbsRel &mdash; TartanAir-UW ocean</div>
+      </div>
+      <div class="stat reveal">
+        <div class="stat__num">24.3%<span>&darr;</span></div>
+        <div class="stat__label">Rel &mdash; SQUID (real underwater)</div>
+      </div>
+      <div class="stat reveal">
+        <div class="stat__num">31%<span>&darr;</span></div>
+        <div class="stat__label">RMSE vs FoundationStereo (TartanAir-UW)</div>
+      </div>
+      <div class="stat reveal">
+        <div class="stat__num">37%<span>&darr;</span></div>
+        <div class="stat__label">Occluded EPE &mdash; Middlebury(H)</div>
+      </div>
+    </div>
+    <p class="stats__note reveal">Best on <strong>both</strong> underwater benchmarks with a <strong>ViT-B</strong> backbone trained on <strong>SceneFlow only</strong> &mdash;
+      no underwater, real-world, or domain-specific data at any training stage.</p>
+  </div>
+</section>
+
+<!-- ================= ABSTRACT ================= -->
+<section class="section" id="abstract">
+  <div class="container container--narrow">
+    <h2 class="section__title">Abstract</h2>
+    <p class="abstract reveal">
+      Existing Vision Foundation Model (VFM)-based iterative stereo pipelines under-exploit three information
+      pathways: multi-scale backbone features are collapsed into single-level correlations, geometric priors
+      remain untapped at initialization, and context propagates only locally. These gaps widen under degraded
+      photometric cues, making underwater scenes a stringent generalization test. To address this, we propose
+      <strong>LinStereo</strong>, built upon Depth&nbsp;Anything&nbsp;3, whose core is a
+      <strong>Position-Aware Linear Attention (PALA)</strong> module that replaces local recurrence with global
+      aggregation at linear cost, propagating reliable estimates from well-matched regions into degraded areas
+      while preserving disparity structure. PALA is made effective by two enabling components:
+      <strong>Hierarchical Semantic Cost Volumes (HSCV)</strong>, which supply scale-aligned correlations from
+      the VFM feature hierarchy, and a <strong>Depth Prior Initialization (DPI)</strong> that converts monocular
+      depth into a metrically calibrated warm start. LinStereo achieves state-of-the-art performance on standard
+      benchmarks and strong cross-domain generalization, particularly on underwater scenes where severe
+      photometric degradation makes stereo matching particularly challenging, surpassing all compared methods with
+      consistent gains (<strong>9.8%</strong> AbsRel on TartanAir ocean scenes, <strong>24.3%</strong> on SQUID, a
+      real-world underwater dataset).
+    </p>
+  </div>
+</section>
+
+<!-- ================= METHOD ================= -->
+<section class="section section--soft" id="method">
+  <div class="container">
+    <h2 class="section__title">Method</h2>
+    <p class="lead lead--center reveal">
+      Modern VFM backbones encode rich multi-scale semantics and implicit geometry, but the iterative update loop
+      still consumes them through a narrow interface inherited from lightweight encoders. LinStereo closes this
+      gap with a single <strong>PALA-centred decoder</strong>, enabled by HSCV and DPI &mdash; not three independent modules.
+    </p>
+
+    <figure class="figure reveal">
+      <img src="static/images/architecture.png" alt="LinStereo architecture: frozen Depth Anything 3 backbone feeding Hierarchical Semantic Cost Volumes, Depth Prior Initialization, and the Position-Aware Linear Attention updater." loading="lazy" />
+      <figcaption>
+        <strong>Architecture.</strong> A frozen Depth&nbsp;Anything&nbsp;3 backbone (DINOv2 ViT-B/14 + Dual-DPT head)
+        produces, in a single forward pass, multi-scale stereo features and a monocular depth map. The PALA updater
+        replaces the ConvGRU with global linear attention over cost-volume features, using 2D rotary position
+        encoding and an adaptive gating branch.
+      </figcaption>
+    </figure>
+
+    <div class="pathways">
+      <div class="pathway reveal">
+        <span class="pathway__tag">WHAT to match</span>
+        <h3>HSCV</h3>
+        <p>Hierarchical Semantic Cost Volumes build a per-scale correlation volume from each VFM scale
+          (s&nbsp;&isin;&nbsp;{4,8,16}), kept simultaneously queryable, each with its own 4-level disparity pyramid.</p>
+      </div>
+      <div class="pathway reveal">
+        <span class="pathway__tag">WHERE to start</span>
+        <h3>DPI</h3>
+        <p>Depth Prior Initialization turns DA3's affine-invariant monocular depth into a metric disparity warm start
+          via SIFT-based scale&ndash;shift alignment &mdash; refinement no longer starts from zero.</p>
+      </div>
+      <div class="pathway reveal">
+        <span class="pathway__tag">HOW to refine</span>
+        <h3>PALA</h3>
+        <p>Position-Aware Linear Attention aggregates global context at <em>O(N)</em> per iteration, propagating
+          reliable disparity from textured regions into degraded, textureless areas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPONENTS DEEP DIVE ================= -->
+<section class="section" id="components">
+  <div class="container">
+
+    <article class="component reveal">
+      <div class="component__body">
+        <span class="component__index">01</span>
+        <h3 class="component__name">Position-Aware Linear Attention <span>(PALA)</span></h3>
+        <p>Standard linear attention reaches <em>O(N)</em> by precomputing <span class="mono">K&#7488;V</span> and sharing
+          it across queries &mdash; but that collapses all spatial relationships into one global summary, making attention
+          <em>position-agnostic</em>. PALA restores spatial structure with 2D rotary position encoding applied
+          <strong>asymmetrically</strong>: only the numerator is position-augmented, while the denominator keeps the
+          plain kernels for stable normalization.</p>
+        <div class="eq">
+          O<sub>attn</sub> = Q&#771;&#8201;(K&#771;<sup>&#8868;</sup>V) &middot; ( Q&#770;&#8201;K&#770;<sup>&#8868;</sup> + &epsilon; )<sup>&#8722;1</sup>
+        </div>
+        <p>A local spatial encoding on the value branch and an adaptive gate let each location absorb new evidence where
+          matching is confident and preserve its estimate where it is not &mdash; so reliable disparity gradually fills
+          uncertain regions. Cost stays <span class="mono">O(N&middot;C&sup2;)</span>; one PALA iteration is as cheap as a
+          ConvGRU step (3.50&nbsp;ms vs 3.63&nbsp;ms).</p>
+      </div>
+    </article>
+
+    <article class="component component--alt reveal">
+      <div class="component__body">
+        <span class="component__index">02</span>
+        <h3 class="component__name">Hierarchical Semantic Cost Volumes <span>(HSCV)</span></h3>
+        <p>Instead of one fixed-resolution correlation volume, HSCV builds one per VFM scale and keeps the whole set
+          accessible, so PALA can re-query any scale at every iteration. Each volume carries its own disparity-axis
+          pyramid for coarse-to-fine matching while preserving spatial resolution &mdash; a two-level hierarchy across
+          scales and within each scale.</p>
+        <p class="component__hook">Replacing the hierarchy with a single pooled feature degrades EPE
+          <span class="delta">1.01&rarr;1.07</span>.</p>
+      </div>
+    </article>
+
+    <article class="component reveal">
+      <div class="component__body">
+        <span class="component__index">03</span>
+        <h3 class="component__name">Depth Prior Initialization <span>(DPI)</span></h3>
+        <p>Disparity is inversely proportional to depth, so DPI converts the monocular prediction via
+          <span class="mono">d = &alpha;/D<sub>mono</sub> + &beta;</span>, solving the scale&ndash;shift
+          <span class="mono">(&alpha;,&beta;)</span> by least squares from sparse SIFT correspondences along epipolar
+          lines. Refinement starts from a geometrically plausible state rather than zero.</p>
+        <p class="component__hook">Honest fallback: when inliers&nbsp;&lt;&nbsp;20 it reverts to zero-disparity init &mdash;
+          firing on <span class="delta">0%</span> of TartanAir-UW and <span class="delta">3.7%</span> of SQUID frames,
+          costing only <span class="delta">+0.08&nbsp;px</span> EPE.</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ================= COMPARISONS (qualitative) ================= -->
+<section class="section section--soft" id="comparisons">
+  <div class="container">
+    <h2 class="section__title">Qualitative comparison</h2>
+    <p class="lead lead--center reveal">On well-conditioned scenes recent methods look near-identical; underwater,
+      the differences explode. The win parses in under a second.</p>
+
+    <figure class="figure reveal">
+      <img src="static/images/qual_underwater.jpg" alt="Underwater qualitative comparison grid: left/right images, ground truth, FoundationStereo, MGStereo, DeFOM-Stereo, Stereo Anywhere, and Ours, on TartanAir-UW and SQUID." loading="lazy" />
+      <figcaption><strong>Underwater (TartanAir-UW &amp; SQUID).</strong> Columns: input, ground truth, FoundationStereo,
+        MGStereo, DeFOM-Stereo, Stereo Anywhere, and <strong>Ours</strong>. Baselines over-estimate depth in distant,
+        backscatter-heavy regions and waver near-field; LinStereo keeps consistent scale at both ranges. Black = no GT.</figcaption>
+    </figure>
+
+    <figure class="figure reveal">
+      <img src="static/images/qual_standard.jpg" alt="Standard-benchmark qualitative comparison on Booster and ETH3D." loading="lazy" />
+      <figcaption><strong>Standard benchmarks (Booster Q &amp; ETH3D).</strong> LinStereo recovers sharper thin structures
+        and handles non-Lambertian surfaces (transparent bottles, car windows).</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ================= STANDARD BENCHMARKS TABLE ================= -->
+<section class="section" id="results">
+  <div class="container">
+    <h2 class="section__title">Standard benchmarks</h2>
+    <p class="lead lead--center reveal">Zero-shot cross-domain, official weights. We keep LinStereo a
+      <strong>ViT-B, SceneFlow-only</strong> model to isolate the decoder's contribution &mdash; competitive with ViT-L
+      systems and extra-data methods, and <strong>best among comparable models</strong> on occluded Middlebury.</p>
+
+    <div class="tablewrap reveal">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th class="tl">Method</th>
+            <th>Extra<br>data</th>
+            <th>KITTI&#8217;15<br>EPE</th>
+            <th>KITTI&#8217;12<br>EPE</th>
+            <th>Midd(H)<br>All EPE</th>
+            <th>Midd(H)<br>Occ EPE</th>
+            <th>ETH3D<br>EPE</th>
+            <th>Booster(Q)<br>EPE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="tl">PSMNet</td><td>&ndash;</td><td>4.05</td><td>3.77</td><td>11.48</td><td>17.69</td><td>2.15</td><td>14.17</td></tr>
+          <tr><td class="tl">RAFT-Stereo</td><td>&ndash;</td><td>1.13</td><td>0.90</td><td>1.92</td><td>3.31</td><td>0.36</td><td>4.18</td></tr>
+          <tr><td class="tl">MGStereo</td><td>&ndash;</td><td>1.13</td><td>0.87</td><td>1.15</td><td>2.89</td><td>0.25</td><td>2.26</td></tr>
+          <tr><td class="tl">Stereo Anywhere <span class="vit">ViT-L</span></td><td>&ndash;</td><td>1.07</td><td>0.83</td><td>0.94</td><td>2.67</td><td>0.24</td><td>2.21</td></tr>
+          <tr><td class="tl">DEFOM-Stereo <span class="vit">ViT-L</span></td><td>&ndash;</td><td>1.06</td><td>0.84</td><td>0.84</td><td>2.11</td><td>0.35</td><td>3.52</td></tr>
+          <tr><td class="tl">MonSter <span class="vit">ViT-L</span></td><td>&ndash;</td><td><u>0.89</u></td><td><u>0.75</u></td><td>1.98</td><td>2.62</td><td><u>0.23</u></td><td>3.08</td></tr>
+          <tr><td class="tl">BridgeDepth <span class="vit">ViT-L</span></td><td>&ndash;</td><td>1.13</td><td>0.86</td><td>2.21</td><td>2.68</td><td>0.24</td><td>4.71</td></tr>
+          <tr class="extra"><td class="tl">FoundationStereo <span class="vit">ViT-L</span></td><td>&#10003;</td><td>0.95</td><td>0.71</td><td>0.71</td><td>2.67</td><td>0.21</td><td>1.77</td></tr>
+          <tr class="ours">
+            <td class="tl">LinStereo <span class="vit">ViT-B (Ours)</span></td><td>&ndash;</td>
+            <td>1.01</td><td><u>0.76</u></td><td><b>0.83</b></td><td><b>1.33</b></td><td>0.24</td><td><b>2.14</b></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption reveal"><b>Bold</b> = best, <u>underline</u> = second-best among comparable methods (no extra data).
+      FoundationStereo (ViT-L + extra data, grey) is the strongest baseline overall and shown for reference.
+      LinStereo's <strong>1.33</strong> occluded-EPE on Middlebury is <strong>37% below</strong> the previous best (DEFOM, 2.11) &mdash;
+      direct evidence of PALA propagating reliable disparity into occluded pixels. Full table in the paper.</p>
+  </div>
+</section>
+
+<!-- ================= UNDERWATER ================= -->
+<section class="section section--ocean" id="underwater">
+  <div class="container">
+    <h2 class="section__title section__title--light">Underwater generalization</h2>
+    <p class="lead lead--center lead--light reveal">The headline domain. Trained on SceneFlow only, LinStereo is
+      <strong>best on every metric on both benchmarks</strong> &mdash; even against methods trained with real-world or
+      domain-specific data.</p>
+
+    <div class="tablewrap tablewrap--dark reveal">
+      <table class="tbl tbl--dark">
+        <thead>
+          <tr>
+            <th class="tl">Method</th><th>Extra<br>data</th>
+            <th>Rel&darr;</th><th>SqRel&darr;</th><th>RMSE&darr;</th><th>LogRMSE&darr;</th><th>&delta;&lt;1.25&uarr;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="grp"><td colspan="7">TartanAir-UW &middot; simulated subsea, long-range backscatter</td></tr>
+          <tr><td class="tl">RAFT-Stereo</td><td>&ndash;</td><td>0.08</td><td>0.65</td><td>4.36</td><td>0.20</td><td>0.902</td></tr>
+          <tr><td class="tl">MGStereo</td><td>&ndash;</td><td>0.08</td><td>0.55</td><td>3.69</td><td>0.19</td><td>0.911</td></tr>
+          <tr><td class="tl">Stereo Anywhere</td><td>&ndash;</td><td>0.06</td><td>0.41</td><td>3.24</td><td>0.18</td><td>0.946</td></tr>
+          <tr><td class="tl">DEFOM-Stereo</td><td>&ndash;</td><td>0.05</td><td>0.41</td><td>3.13</td><td>0.17</td><td>0.953</td></tr>
+          <tr class="extra"><td class="tl">IGEV++</td><td>&#10003;</td><td>0.09</td><td>0.81</td><td>4.37</td><td>0.20</td><td>0.905</td></tr>
+          <tr class="extra"><td class="tl">FoundationStereo</td><td>&#10003;</td><td>0.05</td><td>0.40</td><td>3.01</td><td>0.16</td><td>0.959</td></tr>
+          <tr class="ours"><td class="tl">LinStereo (Ours)</td><td>&ndash;</td><td><b>0.04</b></td><td><b>0.19</b></td><td><b>2.08</b></td><td><b>0.09</b></td><td><b>0.959</b></td></tr>
+          <tr class="grp"><td colspan="7">SQUID &middot; real-world underwater, near-field attenuation</td></tr>
+          <tr><td class="tl">RAFT-Stereo</td><td>&ndash;</td><td>0.07</td><td>0.27</td><td>1.25</td><td>0.12</td><td>0.937</td></tr>
+          <tr><td class="tl">MGStereo</td><td>&ndash;</td><td>0.09</td><td>0.71</td><td>1.99</td><td>0.16</td><td>0.925</td></tr>
+          <tr><td class="tl">Stereo Anywhere</td><td>&ndash;</td><td>0.07</td><td>0.40</td><td>1.46</td><td>0.13</td><td>0.937</td></tr>
+          <tr><td class="tl">DEFOM-Stereo</td><td>&ndash;</td><td>0.09</td><td>0.63</td><td>2.00</td><td>0.16</td><td>0.915</td></tr>
+          <tr class="extra"><td class="tl">IGEV++</td><td>&#10003;</td><td>0.06</td><td>0.22</td><td>1.11</td><td>0.12</td><td>0.950</td></tr>
+          <tr class="extra"><td class="tl">FoundationStereo</td><td>&#10003;</td><td>0.07</td><td>0.30</td><td>1.36</td><td>0.13</td><td>0.940</td></tr>
+          <tr class="ours"><td class="tl">LinStereo (Ours)</td><td>&ndash;</td><td><b>0.04</b></td><td><b>0.12</b></td><td><b>0.90</b></td><td><b>0.08</b></td><td><b>0.970</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption caption--light reveal">The largest gains track each benchmark's dominant degradation:
+      <strong>31% lower RMSE</strong> than FoundationStereo on TartanAir-UW (long-range backscatter) and
+      <strong>33% lower Rel</strong> than IGEV++ on SQUID (near-field attenuation). Selected methods; full tables in the paper.</p>
+
+    <h3 class="subhead subhead--light reveal">Water-condition explorer</h3>
+    <p class="lead lead--center lead--light reveal">Hold the method fixed, change the water. As turbidity and depth climb,
+      LinStereo holds.</p>
+    <div class="tabs tabs--light" id="condTabs" role="tablist" aria-label="Water condition">
+      <button class="tab is-active" data-cond="clear_shallow" role="tab" aria-selected="true">Clear &middot; shallow</button>
+      <button class="tab" data-cond="clear_deep" role="tab" aria-selected="false">Clear &middot; deep</button>
+      <button class="tab" data-cond="murky_shallow" role="tab" aria-selected="false">Murky &middot; shallow</button>
+    </div>
+    <figure class="figure figure--inset reveal">
+      <img id="condImg" src="static/images/cond_clear_shallow.jpg" alt="LinStereo result under varying water conditions" loading="lazy" />
+    </figure>
+  </div>
+</section>
+
+<!-- ================= REAL-WORLD ================= -->
+<section class="section" id="realworld">
+  <div class="container">
+    <h2 class="section__title">Real-world deployment</h2>
+    <p class="lead lead--center reveal">Beyond simulation: a controlled laboratory water tank at close range
+      (&lt;&nbsp;2&nbsp;m), with AprilTag&nbsp;+&nbsp;CAD-model ground truth down to sub-millimetre &mdash; including
+      ~3&nbsp;mm taut ropes as a fine-structure stress test.</p>
+
+    <div class="split">
+      <figure class="figure reveal">
+        <img src="static/images/realworld_tank.jpg" alt="Lab water-tank results comparing LinStereo to baselines at close range." loading="lazy" />
+        <figcaption><strong>Lab tank.</strong> LinStereo leads every metric by a substantial margin where small absolute
+          errors become large relative deviations. Only valid-GT pixels (projecting onto the CAD mesh) are scored.</figcaption>
+      </figure>
+      <div class="reveal">
+        <div class="tablewrap">
+          <table class="tbl tbl--compact">
+            <thead><tr><th class="tl">Method</th><th>Rel&darr;</th><th>RMSE&darr;</th><th>&delta;&lt;1.25&uarr;</th></tr></thead>
+            <tbody>
+              <tr><td class="tl">RAFT-Stereo</td><td>0.06</td><td>0.15</td><td>0.94</td></tr>
+              <tr><td class="tl">FoundationStereo <span class="vit">extra</span></td><td>0.07</td><td>0.18</td><td>0.93</td></tr>
+              <tr><td class="tl">IGEV++ <span class="vit">extra</span></td><td>0.05</td><td>0.12</td><td>0.96</td></tr>
+              <tr class="ours"><td class="tl">LinStereo (Ours)</td><td><b>0.04</b></td><td><b>0.07</b></td><td><b>0.98</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="caption">Robustness is further demonstrated on a BlueROV2 platform.
+          <span class="todo">TODO: embed BlueROV2 field clip.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DATASET ================= -->
+<section class="section section--soft" id="dataset">
+  <div class="container">
+    <h2 class="section__title">SeaStereo Dataset</h2>
+    <p class="lead lead--center reveal">A physically-rendered underwater stereo corpus with dense disparity ground truth,
+      released with the paper.</p>
+
+    <div class="dstats reveal">
+      <div><span>~40K</span>stereo pairs</div>
+      <div><span>7</span>Jerlov water types</div>
+      <div><span>1000+</span>configurations</div>
+      <div><span>dense</span>GT disparity</div>
+    </div>
+
+    <div class="split reveal">
+      <figure class="figure">
+        <img src="static/images/dataset_pipeline.png" alt="SeaStereo rendering pipeline: ShapeNet objects composited over marine backgrounds in Blender under Jerlov water models." loading="lazy" />
+        <figcaption><strong>Pipeline.</strong> ShapeNetCore foreground objects composited over real marine backgrounds
+          (coral, fish, shipwrecks) and rendered in Blender under varying Jerlov water types.</figcaption>
+      </figure>
+      <figure class="figure">
+        <img src="static/images/dataset_samples.png" alt="Sample renders from the SeaStereo dataset." loading="lazy" />
+        <figcaption><strong>Samples.</strong> 1008 configurations &times; multiple trajectories, focal lengths, and
+          inter-ocular distances, with random seafloor depth.</figcaption>
+      </figure>
+    </div>
+
+    <figure class="figure figure--inset reveal">
+      <img src="static/images/benchmark_vis.jpg" alt="Condition-stratified SeaStereo visual results." loading="lazy" />
+      <figcaption><strong>Condition-stratified results</strong> across water types and depths.</figcaption>
+    </figure>
+
+    <div class="center reveal">
+      <a class="btn" href="#" title="Dataset download (coming soon)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 21h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Download SeaStereo <span class="pill__soon">soon</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BIBTEX ================= -->
+<section class="section" id="bibtex">
+  <div class="container container--narrow">
+    <div class="bibtex__head">
+      <h2 class="section__title section__title--flush">BibTeX</h2>
+      <button class="copybtn" id="copyBibtex" aria-label="Copy BibTeX">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M5 15V5a2 2 0 0 1 2-2h10" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+        <span>Copy</span>
+      </button>
+    </div>
+<pre class="bibtex"><code id="bibtexCode">@inproceedings{wang2026linstereo,
+  title     = {LinStereo: Linear-Complexity Global Attention for
+               Multi-Scale Iterative Stereo Matching},
+  author    = {Wang, Yiran and Turner, Oliver and Ila, Viorela},
+  booktitle = {European Conference on Computer Vision (ECCV)},
+  year      = {2026}
+}</code></pre>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="container">
+    <p class="footer__ack"><strong>Acknowledgements.</strong> We thank Jay Zhang and Dr.&nbsp;Gideon Billings for collecting
+      the underwater dataset. <span class="todo">TODO: funding / compute acknowledgements.</span></p>
+    <p class="footer__meta">
+      Australian Centre for Robotics, The University of Sydney &middot; ECCV 2026<br>
+      Page layout inspired by recent stereo &amp; depth project pages. Built as plain static files.
+    </p>
+  </div>
+</footer>
+
+<script src="static/js/main.js"></script>
+</body>
+</html>
