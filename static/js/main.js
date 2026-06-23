@@ -179,4 +179,12 @@
       });
     });
   });
+
+  // optional deep-link: ?fig=realworld preselects a gallery tab (across groups)
+  var initFig = new URLSearchParams(location.search).get("fig");
+  if (initFig) {
+    document.querySelectorAll('.tabs[data-gallery] .tab[data-fig="' + initFig + '"]').forEach(function (t) {
+      t.click();
+    });
+  }
 })();
