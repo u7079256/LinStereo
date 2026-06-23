@@ -318,18 +318,12 @@
     <h2 class="section__title">More qualitative results</h2>
     <p class="lead lead--center reveal">Per-benchmark comparisons, <strong>one scene per row</strong>: the input
       alongside recent baselines and <strong>LinStereo&nbsp;(Ours, highlighted)</strong> &mdash; across standard,
-      underwater, real-world, and synthetic domains. Pick a benchmark.</p>
+      underwater, real-world, and synthetic domains.</p>
 
   <div class="gallery__group reveal">
     <h3 class="subhead">Standard benchmarks</h3>
-    <div class="tabs" data-gallery="std" role="tablist" aria-label="Standard benchmarks">
-      <button class="tab is-active" data-fig="booster" role="tab" aria-selected="true">Booster</button>
-      <button class="tab" data-fig="eth3d" role="tab" aria-selected="false">ETH3D</button>
-      <button class="tab" data-fig="kitti2012" role="tab" aria-selected="false">KITTI&#8217;12</button>
-      <button class="tab" data-fig="kitti2015" role="tab" aria-selected="false">KITTI&#8217;15</button>
-    </div>
-    <div class="gallery" data-gallery="std">
-    <figure class="figure gallery__item is-active" data-fig="booster">
+    <figure class="figure panelblock reveal">
+      <h4 class="panelblock__name">Booster</h4>
       <div class="panelset" style="--cols:6">
         <div class="panelset__head">
           <span>Input</span>
@@ -366,7 +360,8 @@
       </div>
       <figcaption><strong>Booster (Q).</strong> Transparent glass bottles, a specular metallic sink, and reflective appliances &mdash; the target depth is the physical surface, not what is seen through the glass. Baselines bleed depth around glass and leave noise on specular metal; LinStereo recovers clean contours and consistent surface depth (red boxes).</figcaption>
     </figure>
-    <figure class="figure gallery__item" data-fig="eth3d">
+    <figure class="figure panelblock reveal">
+      <h4 class="panelblock__name">ETH3D</h4>
       <div class="panelset" style="--cols:6">
         <div class="panelset__head">
           <span>Input</span>
@@ -403,7 +398,8 @@
       </div>
       <figcaption><strong>ETH3D.</strong> Industrial interiors with thin pipes, low-light building exteriors, and dense outdoor vegetation. Baselines lose thin-structure continuity and produce large-area errors in dark regions; LinStereo preserves fine detail and stays stable under low light.</figcaption>
     </figure>
-    <figure class="figure gallery__item" data-fig="kitti2012">
+    <figure class="figure panelblock reveal">
+      <h4 class="panelblock__name">KITTI&#8217;12</h4>
       <div class="panelset" style="--cols:6">
         <div class="panelset__head">
           <span>Input</span>
@@ -448,7 +444,8 @@
       </div>
       <figcaption><strong>KITTI 2012.</strong> Four street scenes. LinStereo yields sharper vehicle boundaries and preserves thin structures &mdash; poles, traffic signs &mdash; that competing methods blur or fragment (red boxes).</figcaption>
     </figure>
-    <figure class="figure gallery__item" data-fig="kitti2015">
+    <figure class="figure panelblock reveal">
+      <h4 class="panelblock__name">KITTI&#8217;15</h4>
       <div class="panelset" style="--cols:6">
         <div class="panelset__head">
           <span>Input</span>
@@ -493,19 +490,11 @@
       </div>
       <figcaption><strong>KITTI 2015.</strong> LinStereo recovers small distant objects and road-level structure such as guard rails that the baselines over-smooth or miss (red boxes).</figcaption>
     </figure>
-    </div>
   </div>
   <div class="gallery__group reveal">
     <h3 class="subhead">Underwater, real-world &amp; synthetic</h3>
-    <div class="tabs" data-gallery="uw" role="tablist" aria-label="Underwater, real-world &amp; synthetic">
-      <button class="tab is-active" data-fig="tartanair1" role="tab" aria-selected="true">TartanAir-UW&nbsp;&#9312;</button>
-      <button class="tab" data-fig="tartanair2" role="tab" aria-selected="false">TartanAir-UW&nbsp;&#9313;</button>
-      <button class="tab" data-fig="squid" role="tab" aria-selected="false">SQUID</button>
-      <button class="tab" data-fig="realworld" role="tab" aria-selected="false">Real-world&nbsp;tank</button>
-      <button class="tab" data-fig="seastereo" role="tab" aria-selected="false">SeaStereo</button>
-    </div>
-    <div class="gallery" data-gallery="uw">
-    <figure class="figure gallery__item is-active" data-fig="tartanair1">
+    <figure class="figure panelblock reveal">
+      <h4 class="panelblock__name">TartanAir-UW&nbsp;&#9312;</h4>
       <div class="panelset" style="--cols:6">
         <div class="panelset__head">
           <span>Input</span>
@@ -542,7 +531,8 @@
       </div>
       <figcaption><strong>TartanAir-UW &#9312;.</strong> Simulated underwater scenes (rocky seafloor, an underwater cliff, a coral reef). Baselines overestimate depth in backscatter-affected distant regions and lose small foreground objects; LinStereo preserves accurate near-to-far transitions and resolves individual object depth.</figcaption>
     </figure>
-    <figure class="figure gallery__item" data-fig="tartanair2">
+    <figure class="figure panelblock reveal">
+      <h4 class="panelblock__name">TartanAir-UW&nbsp;&#9313;</h4>
       <div class="panelset" style="--cols:6">
         <div class="panelset__head">
           <span>Input</span>
@@ -579,7 +569,8 @@
       </div>
       <figcaption><strong>TartanAir-UW &#9313;.</strong> Severe scattering and low visibility. Baselines show depth collapse, blocky artifacts, or over-smoothing that erases terrain; LinStereo recovers coherent depth gradients and detects small foreground objects in extremely degraded conditions.</figcaption>
     </figure>
-    <figure class="figure gallery__item" data-fig="squid">
+    <figure class="figure panelblock reveal">
+      <h4 class="panelblock__name">SQUID</h4>
       <div class="panelset" style="--cols:6">
         <div class="panelset__head">
           <span>Input</span>
@@ -616,7 +607,8 @@
       </div>
       <figcaption><strong>SQUID (real-world).</strong> Shallow sandy seafloor, near-field coral and rock, man-made equipment. Under strong color attenuation the baselines show depth-scale inconsistencies and bleeding; LinStereo keeps stable depth and recovers fine detail. Black = unavailable depth.</figcaption>
     </figure>
-    <figure class="figure gallery__item" data-fig="realworld">
+    <figure class="figure panelblock reveal">
+      <h4 class="panelblock__name">Real-world tank</h4>
       <div class="panelset" style="--cols:9">
         <div class="panelset__head">
           <span>Input</span>
@@ -654,7 +646,8 @@
       </div>
       <figcaption><strong>Real-world lab tank &mdash; close-up.</strong> A controlled water tank imaged at close range (&lt;&nbsp;2&nbsp;m) with AprilTag&nbsp;+&nbsp;CAD-model ground truth down to sub-millimetre, including ~3&nbsp;mm taut ropes as a fine-structure stress test. Columns: left, right, GT, then five baselines and <strong>Ours</strong>. LinStereo resolves the thin ropes and tank geometry that baselines blur, fragment, or miss. Black = no valid GT.</figcaption>
     </figure>
-    <figure class="figure gallery__item" data-fig="seastereo">
+    <figure class="figure panelblock reveal">
+      <h4 class="panelblock__name">SeaStereo</h4>
       <div class="panelset" style="--cols:9">
         <div class="panelset__head">
           <span>Input</span>
@@ -714,7 +707,6 @@
       </div>
       <figcaption><strong>SeaStereo (synthetic).</strong> Left, right, ground truth, then five baselines and <strong>Ours</strong>, across Jerlov water types. Baselines show edge noise or shape distortion on elongated structures and over-smooth vegetation, losing depth layering; LinStereo preserves sharp object contours and foreground&ndash;background separation.</figcaption>
     </figure>
-    </div>
   </div>
   <p class="caption reveal">Reproduced from the paper's supplementary material. See the paper for full discussion.</p>
   </div>

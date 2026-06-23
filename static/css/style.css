@@ -434,6 +434,9 @@ sup { font-size: .62em; }
 
 /* ---------- SUPPLEMENTARY: one-sample-per-row panel strips ---------- */
 .container--wide { max-width: 1280px; }
+.panelblock { margin: 0 0 26px; text-align: left; }
+.panelblock:last-child { margin-bottom: 0; }
+.panelblock__name { font-family: var(--sans); font-weight: 700; color: var(--ink); font-size: 1.06rem; margin: 2px 0 12px; }
 .panelset { margin: 6px 0 2px; }
 .panelset__head {
   display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: 8px; margin-bottom: 7px;
