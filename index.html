@@ -874,23 +874,85 @@
       (&lt;&nbsp;2&nbsp;m), with AprilTag&nbsp;+&nbsp;CAD-model ground truth down to sub-millimetre &mdash; including
       ~3&nbsp;mm taut ropes as a fine-structure stress test.</p>
 
-    <div class="tablewrap reveal" style="max-width:660px;margin:0 auto;">
-      <table class="tbl tbl--compact">
-        <thead><tr><th class="tl">Method</th><th>Rel&darr;</th><th>RMSE&darr;</th><th>&delta;&lt;1.25&uarr;</th></tr></thead>
+    <div class="tablewrap reveal">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th class="tl">Method</th><th>Extra<br>data</th>
+            <th>Rel&darr;</th><th>SqRel&darr;</th><th>RMSE&darr;</th><th>LogRMSE&darr;</th>
+            <th>A1&uarr;</th><th>A2&uarr;</th><th>A3&uarr;</th>
+          </tr>
+        </thead>
         <tbody>
-          <tr><td class="tl">RAFT-Stereo</td><td>0.06</td><td>0.15</td><td>0.94</td></tr>
-          <tr><td class="tl">FoundationStereo <span class="vit">extra</span></td><td>0.07</td><td>0.18</td><td>0.93</td></tr>
-          <tr><td class="tl">IGEV++ <span class="vit">extra</span></td><td>0.05</td><td>0.12</td><td>0.96</td></tr>
-          <tr class="ours"><td class="tl">LinStereo (Ours)</td><td><b>0.04</b></td><td><b>0.07</b></td><td><b>0.98</b></td></tr>
+          <tr><td class="tl">PSMNet</td><td>&ndash;</td><td>0.18</td><td>0.16</td><td>0.34</td><td>0.28</td><td>0.87</td><td>0.90</td><td>0.93</td></tr>
+          <tr><td class="tl">UniMatch</td><td>&ndash;</td><td>0.08</td><td>0.04</td><td>0.17</td><td>0.16</td><td>0.93</td><td>0.96</td><td>0.98</td></tr>
+          <tr><td class="tl">Stereo Anywhere</td><td>&ndash;</td><td>0.09</td><td>0.06</td><td>0.20</td><td>0.19</td><td>0.92</td><td>0.93</td><td>0.97</td></tr>
+          <tr><td class="tl">RAFT-Stereo</td><td>&ndash;</td><td>0.06</td><td>0.03</td><td>0.15</td><td>0.14</td><td>0.94</td><td>0.96</td><td>0.99</td></tr>
+          <tr><td class="tl">MGStereo</td><td>&ndash;</td><td>0.08</td><td>0.05</td><td>0.18</td><td>0.17</td><td>0.93</td><td>0.94</td><td>0.98</td></tr>
+          <tr class="extra"><td class="tl">Selective-Stereo (RAFT)</td><td>&#10003;</td><td>0.07</td><td>0.03</td><td>0.14</td><td>0.14</td><td>0.94</td><td>0.97</td><td>0.99</td></tr>
+          <tr class="extra"><td class="tl">Selective-Stereo (IGEV)</td><td>&#10003;</td><td>0.08</td><td>0.04</td><td>0.16</td><td>0.16</td><td>0.91</td><td>0.95</td><td>0.99</td></tr>
+          <tr class="extra"><td class="tl">IGEV-Stereo</td><td>&#10003;</td><td>0.06</td><td>0.02</td><td>0.13</td><td>0.12</td><td>0.94</td><td>0.97</td><td>0.99</td></tr>
+          <tr class="extra"><td class="tl">IGEV++</td><td>&#10003;</td><td>0.05</td><td>0.02</td><td>0.12</td><td>0.12</td><td>0.96</td><td>0.97</td><td>0.99</td></tr>
+          <tr class="extra"><td class="tl">FoundationStereo</td><td>&#10003;</td><td>0.07</td><td>0.04</td><td>0.18</td><td>0.17</td><td>0.93</td><td>0.94</td><td>0.98</td></tr>
+          <tr class="ours"><td class="tl">LinStereo (Ours, T=8)</td><td>&ndash;</td><td><b>0.04</b></td><td><b>0.01</b></td><td><b>0.07</b></td><td><b>0.07</b></td><td><b>0.98</b></td><td><b>0.99</b></td><td><b>1.00</b></td></tr>
         </tbody>
       </table>
     </div>
-    <p class="caption reveal">LinStereo attains the lowest error on every metric on this near-range, fine-structure target.
-      Only valid-GT pixels (projecting onto the CAD mesh) are scored. The qualitative close-up comparison is in
+    <p class="caption reveal"><b>Bold</b>&nbsp;=&nbsp;best. Extra&nbsp;data&nbsp;(&#10003;) = trained beyond SceneFlow.
+      Rel/SqRel/RMSE/LogRMSE lower is better; accuracy thresholds A1/A2/A3 higher is better. Scored only on valid-GT pixels
+      projecting onto the CAD mesh. LinStereo &mdash; SceneFlow-only &mdash; leads every metric at this near-range,
+      fine-structure target. Qualitative close-up in
       <a href="#supplementary">More qualitative results &rarr; Real-world&nbsp;tank</a>.</p>
   </div>
 </section>
 
+
+<!-- ================= EFFICIENCY ================= -->
+<section class="section section--soft" id="efficiency">
+  <div class="container">
+    <h2 class="section__title">Efficiency &amp; runtime</h2>
+    <p class="lead lead--center reveal">LinStereo trades raw speed for accuracy and zero-shot generalisation: it is a large
+      model built on a <strong>frozen Depth&nbsp;Anything&nbsp;V3</strong> backbone. The cost is explicit below &mdash; yet its
+      core <strong>PALA</strong> update operator costs about the same per iteration as a local ConvGRU, despite being
+      <em>global</em> and linear in image size.</p>
+
+    <h3 class="subhead reveal">Computational efficiency</h3>
+    <div class="tablewrap reveal">
+      <table class="tbl">
+        <thead><tr><th class="tl">Method</th><th>Params&nbsp;(M)&darr;</th><th>GFLOPs&darr;</th><th>Time&nbsp;(ms)&darr;</th><th>FPS&uarr;</th></tr></thead>
+        <tbody>
+          <tr><td class="tl">LightStereo-S</td><td>3.44</td><td><b>45.4</b></td><td><b>9.9</b></td><td><b>101.0</b></td></tr>
+          <tr><td class="tl">CoEx</td><td>2.73</td><td>70.6</td><td>11.0</td><td>91.0</td></tr>
+          <tr><td class="tl">CGI-Stereo</td><td>3.50</td><td>81.6</td><td>12.8</td><td>78.1</td></tr>
+          <tr><td class="tl">Fast-ACVNet</td><td>3.08</td><td>104.6</td><td>13.2</td><td>76.0</td></tr>
+          <tr><td class="tl">ADStereo</td><td>7.10</td><td>201.6</td><td>15.4</td><td>64.7</td></tr>
+          <tr><td class="tl">RAFT-Stereo&dagger;</td><td>9.87</td><td>296.4</td><td>18.0</td><td>55.7</td></tr>
+          <tr><td class="tl">RT-IGEV</td><td>4.17</td><td>354.2</td><td>24.7</td><td>40.5</td></tr>
+          <tr><td class="tl">MobileStereoNet</td><td><b>2.35</b></td><td>175.6</td><td>37.7</td><td>26.5</td></tr>
+          <tr><td class="tl">AANet</td><td>3.93</td><td>&ndash;</td><td>65.8</td><td>15.2</td></tr>
+          <tr class="ours"><td class="tl">LinStereo (Ours, T=2)</td><td>127.0</td><td>770.4</td><td>80</td><td>12.5</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption reveal"><b>Bold</b>&nbsp;=&nbsp;best. Measured at 480&times;640 on a single NVIDIA RTX&nbsp;4500 (24&nbsp;GB);
+      LinStereo at <strong>T&nbsp;=&nbsp;2</strong> (accuracy elsewhere uses T&nbsp;=&nbsp;8). LinStereo is a large,
+      accuracy-first model &mdash; not a lightweight real-time network.</p>
+
+    <h3 class="subhead reveal">Per-iteration update operator</h3>
+    <div class="tablewrap reveal" style="max-width:480px;margin:0 auto;">
+      <table class="tbl tbl--compact">
+        <thead><tr><th class="tl">Update operator</th><th>Latency&nbsp;(ms)&darr;</th></tr></thead>
+        <tbody>
+          <tr class="ours"><td class="tl">PALA (Ours)</td><td>3.50 &plusmn; 0.05</td></tr>
+          <tr><td class="tl">RAFT-Stereo ConvGRU</td><td>3.63 &plusmn; 0.06</td></tr>
+          <tr><td class="tl">IGEV ConvGRU</td><td>3.43 &plusmn; 0.03</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption reveal">Per-update latency at 480&times;640 (&plusmn;&nbsp;95% CI). PALA's <em>global</em>,
+      linear-complexity attention costs essentially the same per iteration as the <em>local</em> ConvGRU operators it replaces.</p>
+  </div>
+</section>
 
 <!-- ================= BIBTEX ================= -->
 <section class="section" id="bibtex">
