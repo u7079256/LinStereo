@@ -148,4 +148,24 @@
   } else {
     reveals.forEach(function (el) { el.classList.add("is-in"); });
   }
+
+  /* ---------- Supplementary tabbed galleries ---------- */
+  document.querySelectorAll('.tabs[data-gallery]').forEach(function (tabs) {
+    var key = tabs.getAttribute("data-gallery");
+    var gallery = document.querySelector('.gallery[data-gallery="' + key + '"]');
+    if (!gallery) return;
+    tabs.addEventListener("click", function (e) {
+      var btn = e.target.closest(".tab");
+      if (!btn) return;
+      var fig = btn.getAttribute("data-fig");
+      tabs.querySelectorAll(".tab").forEach(function (t) {
+        var on = t === btn;
+        t.classList.toggle("is-active", on);
+        t.setAttribute("aria-selected", on ? "true" : "false");
+      });
+      gallery.querySelectorAll(".gallery__item").forEach(function (it) {
+        it.classList.toggle("is-active", it.getAttribute("data-fig") === fig);
+      });
+    });
+  });
 })();

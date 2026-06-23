@@ -411,3 +411,23 @@ sup { font-size: .62em; }
   .hero__caustics { animation: none; }
   .reveal { transition: none; opacity: 1; transform: none; }
 }
+
+/* ---------- SUPPLEMENTARY: tabbed gallery (all figures in DOM, one shown) ---------- */
+.gallery { margin-top: 4px; }
+.gallery__item { display: none; }
+.gallery__item.is-active { display: block; animation: galleryfade .35s ease; }
+@keyframes galleryfade { from { opacity: 0; } to { opacity: 1; } }
+.gallery__group { margin-top: 40px; }
+.gallery__group:first-of-type { margin-top: 8px; }
+/* gallery figures display full container width (detailed grids — scroll to inspect) */
+@media (prefers-reduced-motion: reduce) { .gallery__item.is-active { animation: none; } }
+
+/* ---------- DATASET sample montage (L | R | Disparity triplets) ---------- */
+.montage { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 16px; }
+.montage__card { background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 8px; box-shadow: var(--shadow); }
+.montage__trip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; }
+.montage__trip img { border-radius: 4px; width: 100%; }
+.montage__cap { font-family: var(--sans); font-size: .74rem; color: var(--muted); text-align: center; margin-top: 6px; }
+.montage__hdr { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; font-family: var(--sans); font-size: .64rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--teal); text-align: center; margin-bottom: 4px; }
+@media (max-width: 760px) { .montage { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 460px) { .montage { grid-template-columns: 1fr; } }
