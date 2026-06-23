@@ -790,36 +790,42 @@
       <table class="tbl">
         <thead>
           <tr>
-            <th class="tl">Method</th>
-            <th>Extra<br>data</th>
-            <th>KITTI&#8217;15<br>EPE</th>
-            <th>KITTI&#8217;12<br>EPE</th>
-            <th>Midd(H)<br>All EPE</th>
-            <th>Midd(H)<br>Occ EPE</th>
-            <th>ETH3D<br>EPE</th>
-            <th>Booster(Q)<br>EPE</th>
+            <th class="tl" rowspan="2">Method</th><th rowspan="2">Extra<br>data</th>
+            <th colspan="2">KITTI 2015</th><th colspan="2">KITTI 2012</th>
+            <th colspan="6">Middlebury (H)</th>
+            <th colspan="2">ETH3D</th><th colspan="2">Booster (Q)</th>
+          </tr>
+          <tr>
+            <th>EPE&darr;</th><th>bad3&darr;</th><th>EPE&darr;</th><th>bad3&darr;</th>
+            <th>All EPE&darr;</th><th>All bad2&darr;</th><th>Noc EPE&darr;</th><th>Noc bad2&darr;</th><th>Occ EPE&darr;</th><th>Occ bad2&darr;</th>
+            <th>EPE&darr;</th><th>bad1&darr;</th><th>EPE&darr;</th><th>bad2&darr;</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td class="tl">PSMNet</td><td>&ndash;</td><td>4.05</td><td>3.77</td><td>11.48</td><td>17.69</td><td>2.15</td><td>14.17</td></tr>
-          <tr><td class="tl">RAFT-Stereo</td><td>&ndash;</td><td>1.13</td><td>0.90</td><td>1.92</td><td>3.31</td><td>0.36</td><td>4.18</td></tr>
-          <tr><td class="tl">MGStereo</td><td>&ndash;</td><td>1.13</td><td>0.87</td><td>1.15</td><td>2.89</td><td>0.25</td><td>2.26</td></tr>
-          <tr><td class="tl">Stereo Anywhere <span class="vit">ViT-L</span></td><td>&ndash;</td><td>1.07</td><td>0.83</td><td>0.94</td><td>2.67</td><td><u>0.24</u></td><td><u>2.21</u></td></tr>
-          <tr><td class="tl">DEFOM-Stereo <span class="vit">ViT-L</span></td><td>&ndash;</td><td>1.06</td><td>0.84</td><td><u>0.84</u></td><td><u>2.11</u></td><td>0.35</td><td>3.52</td></tr>
-          <tr><td class="tl">MonSter <span class="vit">ViT-L</span></td><td>&ndash;</td><td><b>0.89</b></td><td><b>0.75</b></td><td>1.98</td><td>2.62</td><td><b>0.23</b></td><td>3.08</td></tr>
-          <tr><td class="tl">BridgeDepth <span class="vit">ViT-L</span></td><td>&ndash;</td><td>1.13</td><td>0.86</td><td>2.21</td><td>2.68</td><td><u>0.24</u></td><td>4.71</td></tr>
-          <tr class="extra"><td class="tl">FoundationStereo <span class="vit">ViT-L</span></td><td>&#10003;</td><td>0.95</td><td>0.71</td><td>0.71</td><td>2.67</td><td>0.21</td><td>1.77</td></tr>
-          <tr class="ours">
-            <td class="tl">LinStereo <span class="vit">ViT-B (Ours)</span></td><td>&ndash;</td>
-            <td><u>1.01</u></td><td><u>0.76</u></td><td><b>0.83</b></td><td><b>1.33</b></td><td><u>0.24</u></td><td><b>2.14</b></td>
-          </tr>
+      <tr><td class="tl">PSMNet</td><td>&ndash;</td><td>4.05</td><td>28.51</td><td>3.77</td><td>27.34</td><td>11.48</td><td>36.06</td><td>10.56</td><td>32.11</td><td>17.69</td><td>62.58</td><td>2.15</td><td>15.13</td><td>14.17</td><td>49.79</td></tr>
+      <tr><td class="tl">RAFT-Stereo</td><td>&ndash;</td><td>1.13</td><td>5.69</td><td>0.90</td><td>4.35</td><td>1.92</td><td>12.6</td><td>1.09</td><td>8.65</td><td>3.31</td><td>26.39</td><td>0.36</td><td>3.3</td><td>4.18</td><td>17.64</td></tr>
+      <tr class="extra"><td class="tl">IGEV-Stereo</td><td>&#10003;</td><td>1.21</td><td>6.03</td><td>1.03</td><td>5.13</td><td>2.63</td><td>11.93</td><td>2.27</td><td>9.49</td><td>5.02</td><td>26.04</td><td>0.33</td><td>4.0</td><td>4.26</td><td>17.58</td></tr>
+      <tr><td class="tl">UniMatch</td><td>&ndash;</td><td>1.63</td><td>11.01</td><td>1.71</td><td>12.04</td><td>4.21</td><td>34.72</td><td>3.96</td><td>31.52</td><td>5.70</td><td>56.51</td><td>0.69</td><td>18.61</td><td>8.57</td><td>47.30</td></tr>
+      <tr class="extra"><td class="tl">Selective-RAFT</td><td>&#10003;</td><td>1.27</td><td>6.68</td><td>1.08</td><td>5.19</td><td>2.34</td><td>12.04</td><td>2.05</td><td>9.45</td><td>4.17</td><td>27.4</td><td>0.34</td><td>4.36</td><td>4.14</td><td>19.52</td></tr>
+      <tr class="extra"><td class="tl">Selective-IGEV</td><td>&#10003;</td><td>1.25</td><td>6.06</td><td>1.08</td><td>5.64</td><td>2.59</td><td>11.79</td><td>2.31</td><td>9.22</td><td>4.35</td><td>28.10</td><td>0.33</td><td>4.05</td><td>4.62</td><td>19.28</td></tr>
+      <tr><td class="tl">MoCha-Stereo</td><td>&ndash;</td><td>1.29</td><td>5.97</td><td>1.02</td><td>4.83</td><td>2.66</td><td>10.18</td><td>2.49</td><td>7.96</td><td>3.84</td><td>24.16</td><td>0.28</td><td>3.47</td><td>3.88</td><td>16.82</td></tr>
+      <tr><td class="tl">NMRF</td><td>&ndash;</td><td>1.17</td><td>5.31</td><td>0.92</td><td>4.63</td><td>2.91</td><td>13.36</td><td>2.73</td><td>10.90</td><td>4.22</td><td>29.27</td><td>0.31</td><td>3.8</td><td>5.05</td><td>26.22</td></tr>
+      <tr class="extra"><td class="tl">IGEV++</td><td>&#10003;</td><td>1.27</td><td>6.22</td><td>1.20</td><td>6.81</td><td>3.21</td><td>10.85</td><td>2.41</td><td>7.86</td><td>6.83</td><td>28.68</td><td>0.35</td><td>4.60</td><td>5.00</td><td>18.62</td></tr>
+      <tr><td class="tl">MGStereo</td><td>&ndash;</td><td>1.13</td><td>5.62</td><td>0.87</td><td>4.16</td><td>1.15</td><td>8.39</td><td><u>0.85</u></td><td><u>5.67</u></td><td>2.89</td><td>26.50</td><td>0.25</td><td>1.88</td><td>2.26</td><td>11.02</td></tr>
+      <tr><td class="tl">Stereo Anywhere <span class="vit">ViT-L</span></td><td>&ndash;</td><td>1.07</td><td>4.93</td><td>0.83</td><td>3.90</td><td>0.94</td><td>6.96</td><td><b>0.79</b></td><td><b>4.75</b></td><td>2.67</td><td>20.34</td><td><u>0.24</u></td><td>2.66</td><td><u>2.21</u></td><td><b>9.91</b></td></tr>
+      <tr><td class="tl">DEFOM-Stereo <span class="vit">ViT-L</span></td><td>&ndash;</td><td>1.06</td><td>4.99</td><td>0.84</td><td>3.76</td><td><u>0.84</u></td><td><b>5.91</b></td><td>0.90</td><td>5.76</td><td><u>2.11</u></td><td><u>19.34</u></td><td>0.35</td><td>2.35</td><td>3.52</td><td>13.20</td></tr>
+      <tr><td class="tl">MonSter <span class="vit">ViT-L</span></td><td>&ndash;</td><td><b>0.89</b></td><td><b>3.58</b></td><td><b>0.75</b></td><td><u>3.58</u></td><td>1.98</td><td>10.41</td><td>2.03</td><td>8.79</td><td>2.62</td><td>21.56</td><td><b>0.23</b></td><td><u>1.41</u></td><td>3.08</td><td>17.45</td></tr>
+      <tr><td class="tl">BridgeDepth <span class="vit">ViT-L</span></td><td>&ndash;</td><td>1.13</td><td>4.90</td><td>0.86</td><td>4.39</td><td>2.21</td><td>10.27</td><td>2.25</td><td>8.66</td><td>2.68</td><td>20.42</td><td><u>0.24</u></td><td><b>1.33</b></td><td>4.71</td><td>18.79</td></tr>
+      <tr class="extra"><td class="tl">FoundationStereo <span class="vit">ViT-L</span></td><td>&#10003;</td><td>0.95</td><td>3.65</td><td>0.71</td><td>3.18</td><td>0.71</td><td>3.47</td><td>0.42</td><td>1.46</td><td>2.67</td><td>16.44</td><td>0.21</td><td>1.14</td><td>1.77</td><td>6.89</td></tr>
+      <tr class="ours"><td class="tl">LinStereo <span class="vit">ViT-B (Ours)</span></td><td>&ndash;</td><td><u>1.01</u></td><td><u>4.54</u></td><td><u>0.76</u></td><td><b>3.49</b></td><td><b>0.83</b></td><td><u>6.01</u></td><td>0.89</td><td><u>5.67</u></td><td><b>1.33</b></td><td><b>8.69</b></td><td><u>0.24</u></td><td>2.41</td><td><b>2.14</b></td><td><u>9.93</u></td></tr>
         </tbody>
       </table>
     </div>
     <p class="caption reveal"><b>Bold</b> = best, <u>underline</u> = second-best among comparable methods (no extra data).
       FoundationStereo (ViT-L + extra data, grey) is the strongest baseline overall and shown for reference.
       LinStereo's <strong>1.33</strong> occluded-EPE on Middlebury is <strong>37% below</strong> the previous best (DEFOM, 2.11) &mdash;
-      direct evidence of PALA propagating reliable disparity into occluded pixels. Full table in the paper.</p>
+      direct evidence of PALA propagating reliable disparity into occluded pixels. EPE and badX (% pixels past the error
+      threshold) reported per benchmark; scroll the table sideways for all columns.</p>
   </div>
 </section>
 
@@ -833,35 +839,51 @@
 
     <div class="tablewrap tablewrap--dark reveal">
       <table class="tbl tbl--dark">
-        <thead>
-          <tr>
-            <th class="tl">Method</th><th>Extra<br>data</th>
-            <th>Rel&darr;</th><th>SqRel&darr;</th><th>RMSE&darr;</th><th>LogRMSE&darr;</th><th>&delta;&lt;1.25&uarr;</th>
-          </tr>
-        </thead>
+        <thead><tr><th class="tl">Method &middot; TartanAir-UW (simulated, long-range backscatter)</th><th>Extra<br>data</th><th>Rel&darr;</th><th>SqRel&darr;</th><th>RMSE&darr;</th><th>LogRMSE&darr;</th><th>A1&uarr;</th><th>A2&uarr;</th><th>A3&uarr;</th></tr></thead>
         <tbody>
-          <tr class="grp"><td colspan="7">TartanAir-UW &middot; simulated subsea, long-range backscatter</td></tr>
-          <tr><td class="tl">RAFT-Stereo</td><td>&ndash;</td><td>0.08</td><td>0.65</td><td>4.36</td><td>0.20</td><td>0.902</td></tr>
-          <tr><td class="tl">MGStereo</td><td>&ndash;</td><td>0.08</td><td>0.55</td><td>3.69</td><td>0.19</td><td>0.911</td></tr>
-          <tr><td class="tl">Stereo Anywhere</td><td>&ndash;</td><td>0.06</td><td>0.41</td><td>3.24</td><td>0.18</td><td>0.946</td></tr>
-          <tr><td class="tl">DEFOM-Stereo</td><td>&ndash;</td><td>0.05</td><td>0.41</td><td>3.13</td><td>0.17</td><td>0.953</td></tr>
-          <tr class="extra"><td class="tl">IGEV++</td><td>&#10003;</td><td>0.09</td><td>0.81</td><td>4.37</td><td>0.20</td><td>0.905</td></tr>
-          <tr class="extra"><td class="tl">FoundationStereo</td><td>&#10003;</td><td>0.05</td><td>0.40</td><td>3.01</td><td>0.16</td><td>0.959</td></tr>
-          <tr class="ours"><td class="tl">LinStereo (Ours)</td><td>&ndash;</td><td><b>0.04</b></td><td><b>0.19</b></td><td><b>2.08</b></td><td><b>0.09</b></td><td><b>0.959</b></td></tr>
-          <tr class="grp"><td colspan="7">SQUID &middot; real-world underwater, near-field attenuation</td></tr>
-          <tr><td class="tl">RAFT-Stereo</td><td>&ndash;</td><td>0.07</td><td>0.27</td><td>1.25</td><td>0.12</td><td>0.937</td></tr>
-          <tr><td class="tl">MGStereo</td><td>&ndash;</td><td>0.09</td><td>0.71</td><td>1.99</td><td>0.16</td><td>0.925</td></tr>
-          <tr><td class="tl">Stereo Anywhere</td><td>&ndash;</td><td>0.07</td><td>0.40</td><td>1.46</td><td>0.13</td><td>0.937</td></tr>
-          <tr><td class="tl">DEFOM-Stereo</td><td>&ndash;</td><td>0.09</td><td>0.63</td><td>2.00</td><td>0.16</td><td>0.915</td></tr>
-          <tr class="extra"><td class="tl">IGEV++</td><td>&#10003;</td><td>0.06</td><td>0.22</td><td>1.11</td><td>0.12</td><td>0.950</td></tr>
-          <tr class="extra"><td class="tl">FoundationStereo</td><td>&#10003;</td><td>0.07</td><td>0.30</td><td>1.36</td><td>0.13</td><td>0.940</td></tr>
-          <tr class="ours"><td class="tl">LinStereo (Ours)</td><td>&ndash;</td><td><b>0.04</b></td><td><b>0.12</b></td><td><b>0.90</b></td><td><b>0.08</b></td><td><b>0.970</b></td></tr>
+      <tr><td class="tl">UniMatch</td><td>&ndash;</td><td>0.17</td><td>2.59</td><td>6.35</td><td>0.26</td><td>0.759</td><td>0.830</td><td>0.837</td></tr>
+      <tr><td class="tl">MoCha-Stereo</td><td>&ndash;</td><td>0.15</td><td>2.30</td><td>6.02</td><td>0.25</td><td>0.769</td><td>0.835</td><td>0.843</td></tr>
+      <tr><td class="tl">NMRF</td><td>&ndash;</td><td>0.11</td><td>1.08</td><td>4.63</td><td>0.21</td><td>0.811</td><td>0.856</td><td>0.870</td></tr>
+      <tr><td class="tl">PSMNet</td><td>&ndash;</td><td>0.10</td><td>1.02</td><td>4.56</td><td>0.21</td><td>0.813</td><td>0.857</td><td>0.871</td></tr>
+      <tr><td class="tl">RAFT-Stereo</td><td>&ndash;</td><td>0.08</td><td>0.65</td><td>4.36</td><td>0.20</td><td>0.902</td><td>0.963</td><td>0.984</td></tr>
+      <tr><td class="tl">MGStereo</td><td>&ndash;</td><td>0.08</td><td>0.55</td><td>3.69</td><td>0.19</td><td>0.911</td><td>0.968</td><td>0.987</td></tr>
+      <tr><td class="tl">Stereo Anywhere</td><td>&ndash;</td><td>0.06</td><td>0.41</td><td>3.24</td><td>0.18</td><td>0.946</td><td>0.980</td><td>0.989</td></tr>
+      <tr><td class="tl">DEFOM-Stereo</td><td>&ndash;</td><td>0.05</td><td>0.41</td><td>3.13</td><td>0.17</td><td>0.953</td><td>0.982</td><td>0.990</td></tr>
+      <tr class="extra"><td class="tl">Selective-Stereo (RAFT)</td><td>&#10003;</td><td>0.09</td><td>0.67</td><td>4.31</td><td>0.21</td><td>0.902</td><td>0.962</td><td>0.981</td></tr>
+      <tr class="extra"><td class="tl">Selective-Stereo (IGEV)</td><td>&#10003;</td><td>0.11</td><td>1.02</td><td>5.01</td><td>0.23</td><td>0.856</td><td>0.942</td><td>0.976</td></tr>
+      <tr class="extra"><td class="tl">IGEV-Stereo</td><td>&#10003;</td><td>0.10</td><td>0.90</td><td>4.68</td><td>0.21</td><td>0.891</td><td>0.955</td><td>0.979</td></tr>
+      <tr class="extra"><td class="tl">IGEV++</td><td>&#10003;</td><td>0.09</td><td>0.81</td><td>4.37</td><td>0.20</td><td>0.905</td><td>0.962</td><td>0.983</td></tr>
+      <tr class="extra"><td class="tl">FoundationStereo</td><td>&#10003;</td><td>0.05</td><td>0.40</td><td>3.01</td><td>0.16</td><td><b>0.959</b></td><td>0.984</td><td>0.991</td></tr>
+      <tr class="ours"><td class="tl">LinStereo <span class="vit">ViT-B (Ours)</span></td><td>&ndash;</td><td><b>0.04</b></td><td><b>0.19</b></td><td><b>2.08</b></td><td><b>0.09</b></td><td><b>0.959</b></td><td><b>0.992</b></td><td><b>0.998</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="height:18px"></div>
+    <div class="tablewrap tablewrap--dark reveal">
+      <table class="tbl tbl--dark">
+        <thead><tr><th class="tl">Method &middot; SQUID (real-world, near-field attenuation)</th><th>Extra<br>data</th><th>Rel&darr;</th><th>SqRel&darr;</th><th>RMSE&darr;</th><th>LogRMSE&darr;</th><th>A1&uarr;</th><th>A2&uarr;</th><th>A3&uarr;</th></tr></thead>
+        <tbody>
+      <tr><td class="tl">UniMatch</td><td>&ndash;</td><td>1.38</td><td>20.91</td><td>6.42</td><td>0.66</td><td>0.561</td><td>0.660</td><td>0.734</td></tr>
+      <tr><td class="tl">MoCha-Stereo</td><td>&ndash;</td><td>0.15</td><td>0.61</td><td>1.55</td><td>0.20</td><td>0.875</td><td>0.931</td><td>0.958</td></tr>
+      <tr><td class="tl">NMRF</td><td>&ndash;</td><td>0.43</td><td>5.27</td><td>2.57</td><td>0.33</td><td>0.844</td><td>0.904</td><td>0.935</td></tr>
+      <tr><td class="tl">PSMNet</td><td>&ndash;</td><td>0.46</td><td>4.31</td><td>3.43</td><td>0.51</td><td>0.736</td><td>0.813</td><td>0.853</td></tr>
+      <tr><td class="tl">RAFT-Stereo</td><td>&ndash;</td><td>0.07</td><td>0.27</td><td>1.25</td><td>0.12</td><td>0.937</td><td>0.971</td><td>0.987</td></tr>
+      <tr><td class="tl">MGStereo</td><td>&ndash;</td><td>0.09</td><td>0.71</td><td>1.99</td><td>0.16</td><td>0.925</td><td>0.958</td><td>0.976</td></tr>
+      <tr><td class="tl">Stereo Anywhere</td><td>&ndash;</td><td>0.07</td><td>0.40</td><td>1.46</td><td>0.13</td><td>0.937</td><td>0.976</td><td>0.985</td></tr>
+      <tr><td class="tl">DEFOM-Stereo</td><td>&ndash;</td><td>0.09</td><td>0.63</td><td>2.00</td><td>0.16</td><td>0.915</td><td>0.954</td><td>0.977</td></tr>
+      <tr class="extra"><td class="tl">Selective-Stereo (RAFT)</td><td>&#10003;</td><td>0.11</td><td>0.22</td><td>1.16</td><td>0.16</td><td>0.877</td><td>0.940</td><td>0.968</td></tr>
+      <tr class="extra"><td class="tl">Selective-Stereo (IGEV)</td><td>&#10003;</td><td>0.08</td><td>0.21</td><td>1.05</td><td>0.14</td><td>0.932</td><td>0.966</td><td>0.980</td></tr>
+      <tr class="extra"><td class="tl">IGEV-Stereo</td><td>&#10003;</td><td>0.20</td><td>1.35</td><td>2.68</td><td>0.46</td><td>0.760</td><td>0.821</td><td>0.863</td></tr>
+      <tr class="extra"><td class="tl">IGEV++</td><td>&#10003;</td><td>0.06</td><td>0.22</td><td>1.11</td><td>0.12</td><td>0.950</td><td>0.981</td><td>0.990</td></tr>
+      <tr class="extra"><td class="tl">FoundationStereo</td><td>&#10003;</td><td>0.07</td><td>0.30</td><td>1.36</td><td>0.13</td><td>0.940</td><td>0.976</td><td>0.987</td></tr>
+      <tr class="ours"><td class="tl">LinStereo <span class="vit">ViT-B (Ours)</span></td><td>&ndash;</td><td><b>0.04</b></td><td><b>0.12</b></td><td><b>0.90</b></td><td><b>0.08</b></td><td><b>0.970</b></td><td><b>0.990</b></td><td><b>0.996</b></td></tr>
         </tbody>
       </table>
     </div>
     <p class="caption caption--light reveal">The largest gains track each benchmark's dominant degradation:
       <strong>31% lower RMSE</strong> than FoundationStereo on TartanAir-UW (long-range backscatter) and
-      <strong>33% lower Rel</strong> than IGEV++ on SQUID (near-field attenuation). Selected methods; full tables in the paper.</p>
+      <strong>33% lower Rel</strong> than IGEV++ on SQUID (near-field attenuation). All baselines shown;
+      Rel/SqRel/RMSE/LogRMSE lower is better, A1/A2/A3 higher is better.</p>
   </div>
 </section>
 
