@@ -32,10 +32,10 @@
   /* ---------- Comparison wipe slider (multi-dataset) ---------- */
   var SCENES = {
     booster:   { input: "static/images/hero/booster_input.jpg",   depth: "static/images/hero/booster_depth.jpg",   ar: 1.37 },
-    kitti:     { input: "static/images/hero/kitti_input.jpg",     depth: "static/images/hero/kitti_depth.jpg",     ar: 3.358 },
-    eth3d:     { input: "static/images/hero/eth3d_input.jpg",     depth: "static/images/hero/eth3d_depth.jpg",     ar: 1.936 },
-    tartanair: { input: "static/images/hero/tartanair_input.jpg", depth: "static/images/hero/tartanair_depth.jpg", ar: 1.334 },
-    squid:     { input: "static/images/hero/squid_input.jpg",     depth: "static/images/hero/squid_depth.jpg",     ar: 1.581 },
+    kitti:     { input: "static/images/hero/kitti_input.jpg",     depth: "static/images/hero/kitti_depth.jpg",     ar: 3.35 },
+    eth3d:     { input: "static/images/hero/eth3d_input.jpg",     depth: "static/images/hero/eth3d_depth.jpg",     ar: 1.633 },
+    tartanair: { input: "static/images/hero/tartanair_input.jpg", depth: "static/images/hero/tartanair_depth.jpg", ar: 1.337 },
+    squid:     { input: "static/images/hero/squid_input.jpg",     depth: "static/images/hero/squid_depth.jpg",     ar: 1.582 },
     seastereo: { input: "static/images/slider_a_input.jpg",       depth: "static/images/slider_a_depth.jpg",       ar: 1.333 }
   };
 
