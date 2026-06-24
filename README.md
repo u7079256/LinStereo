@@ -21,6 +21,17 @@
 
 ---
 
+## 📰 News
+
+- **2026.06** 🎉🎉 **LinStereo is accepted to ECCV 2026!**
+
+**Coming soon (TODO):**
+
+- [ ] **Pretrained weights** — release the SceneFlow-trained LinStereo checkpoint (frozen Depth Anything V3, ViT-B).
+- [ ] **SeaStereo dataset** — release the ~40K-pair physically-rendered underwater corpus with dense disparity ground truth.
+
+---
+
 ## ✏️ Citation
 
 If you find our work helpful, please consider starring ⭐ this repo and citing:
