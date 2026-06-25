@@ -6,11 +6,11 @@
 
 > **LinStereo: Linear-Complexity Global Attention for Multi-Scale Iterative Stereo Matching**
 >
-> [Yiran Wang](https://u7079256.github.io/LinStereo/)<sup>1</sup>, [Oliver Turner](https://u7079256.github.io/LinStereo/)<sup>1</sup>, [Viorela Ila](https://u7079256.github.io/LinStereo/)<sup>1‡</sup>
+> [Yiran Wang](https://u7079256.github.io/LinStereo/)<sup>1†</sup>, [Oliver Turner](https://u7079256.github.io/LinStereo/)<sup>1</sup>, [Viorela Ila](https://u7079256.github.io/LinStereo/)<sup>1‡</sup>
 >
 > <sup>1</sup>Australian Centre for Robotics, The University of Sydney
 >
-> <sup>‡</sup>Corresponding author.
+> <sup>†</sup>Corresponding author. &nbsp; <sup>‡</sup>Project lead.
 >
 > ### [🌐 Website](https://u7079256.github.io/LinStereo/) | [📄 arXiv](https://arxiv.org/abs/2606.25437) | [📑 PDF](https://arxiv.org/pdf/2606.25437) | [🌊 SeaStereo Dataset (soon)](#) | [📌 BibTeX](#-citation)
 
