@@ -12,7 +12,7 @@
 >
 > <sup>‡</sup>Corresponding author.
 >
-> ### [🌐 Website](https://u7079256.github.io/LinStereo/) | [📄 Paper (soon)](#) | [🌊 SeaStereo Dataset (soon)](#) | [📌 BibTeX](#-citation)
+> ### [🌐 Website](https://u7079256.github.io/LinStereo/) | [📄 arXiv](https://arxiv.org/abs/2606.25437) | [📑 PDF](https://arxiv.org/pdf/2606.25437) | [🌊 SeaStereo Dataset (soon)](#) | [📌 BibTeX](#-citation)
 
 > **TL;DR** — LinStereo redesigns the iterative stereo update loop around **Position-Aware Linear Attention (PALA)**, a global *O(N)* operator on a **frozen Depth Anything V3** backbone, so reliable disparity propagates across the whole image in a single step. It is competitive on standard benchmarks and generalizes **zero-shot** to new domains, including underwater. **Accepted to ECCV 2026.**
 
@@ -23,6 +23,7 @@
 
 ## 📰 News
 
+- **2026.06** 📄 Preprint is live on arXiv — **[arXiv:2606.25437](https://arxiv.org/abs/2606.25437)**.
 - **2026.06** 🎉🎉 **LinStereo is accepted to ECCV 2026!**
 
 **Coming soon (TODO):**
@@ -41,7 +42,10 @@ If you find our work helpful, please consider starring ⭐ this repo and citing:
   title={LinStereo: Linear-Complexity Global Attention for Multi-Scale Iterative Stereo Matching},
   author={Wang, Yiran and Turner, Oliver and Ila, Viorela},
   booktitle={European Conference on Computer Vision (ECCV)},
-  year={2026}
+  year={2026},
+  eprint={2606.25437},
+  archivePrefix={arXiv},
+  primaryClass={cs.CV}
 }
 ```
 
