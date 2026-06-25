@@ -139,9 +139,9 @@ All methods below are trained on SceneFlow (IGEV++ uses extra training data). Nu
 
 > LinStereo's **1.33** occluded-EPE on Middlebury is **37% below** the previous best (DEFOM, 2.11).
 
-### Underwater — Rel ↓ / RMSE ↓
+### Underwater — AbsRel ↓ / RMSE ↓
 
-| Method | TartanAir-UW Rel | TartanAir-UW RMSE | SQUID Rel | SQUID RMSE |
+| Method | TartanAir-UW AbsRel | TartanAir-UW RMSE | SQUID AbsRel | SQUID RMSE |
 |---|---|---|---|---|
 | RAFT-Stereo | 0.08 | 4.36 | 0.07 | 1.25 |
 | MGStereo | 0.08 | 3.69 | 0.09 | 1.99 |
@@ -149,11 +149,11 @@ All methods below are trained on SceneFlow (IGEV++ uses extra training data). Nu
 | IGEV++ (+extra) | 0.09 | 4.37 | 0.06 | 1.11 |
 | **LinStereo (Ours)** | **0.04** | **2.08** | **0.04** | **0.90** |
 
-> **Best on every metric** on both benchmarks — **9.8%** lower AbsRel and **31%** lower RMSE on TartanAir-UW, **24.3%** lower AbsRel and **33%** lower Rel on SQUID.
+> **Best on every metric** on both benchmarks — **28%** lower AbsRel and **31%** lower RMSE on TartanAir-UW, **26%** lower AbsRel on SQUID.
 
-### Real-world lab tank — Rel ↓ / RMSE ↓ / A1 ↑
+### Real-world lab tank — AbsRel ↓ / RMSE ↓ / A1 ↑
 
-| Method | Rel | RMSE | A1 |
+| Method | AbsRel | RMSE | A1 |
 |---|---|---|---|
 | RAFT-Stereo | 0.06 | 0.15 | 0.94 |
 | MGStereo | 0.08 | 0.18 | 0.93 |

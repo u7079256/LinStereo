@@ -9,7 +9,7 @@
 <!-- Open Graph / social -->
 <meta property="og:type" content="website" />
 <meta property="og:title" content="LinStereo: Linear-Complexity Global Attention for Stereo Matching" />
-<meta property="og:description" content="Linear-complexity global attention for iterative stereo on a frozen Depth Anything V3 backbone — competitive on standard benchmarks and strong zero-shot generalization (9.8% lower AbsRel on TartanAir-UW, 24.3% on SQUID). ECCV 2026." />
+<meta property="og:description" content="Linear-complexity global attention for iterative stereo on a frozen Depth Anything V3 backbone — competitive on standard benchmarks and strong zero-shot generalization (28% lower AbsRel on TartanAir-UW, 26% on SQUID). ECCV 2026." />
 <meta property="og:image" content="static/images/og_card.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -147,12 +147,12 @@
   <div class="container">
     <div class="stats">
       <div class="stat reveal">
-        <div class="stat__num">9.8%<span>&darr;</span></div>
+        <div class="stat__num">28%<span>&darr;</span></div>
         <div class="stat__label">AbsRel &mdash; TartanAir-UW ocean</div>
       </div>
       <div class="stat reveal">
-        <div class="stat__num">24.3%<span>&darr;</span></div>
-        <div class="stat__label">Rel &mdash; SQUID (real underwater)</div>
+        <div class="stat__num">26%<span>&darr;</span></div>
+        <div class="stat__label">AbsRel &mdash; SQUID (real underwater)</div>
       </div>
       <div class="stat reveal">
         <div class="stat__num">31%<span>&darr;</span></div>
@@ -186,7 +186,7 @@
       depth into a metrically calibrated warm start. LinStereo achieves state-of-the-art performance on standard
       benchmarks and strong cross-domain generalization, particularly on underwater scenes where severe
       photometric degradation makes stereo matching particularly challenging, surpassing all compared methods with
-      consistent gains (<strong>9.8%</strong> AbsRel on TartanAir ocean scenes, <strong>24.3%</strong> on SQUID, a
+      consistent gains (<strong>28%</strong> AbsRel on TartanAir-UW, <strong>26%</strong> on SQUID, a
       real-world underwater dataset).
     </p>
   </div>
@@ -842,7 +842,7 @@
 
     <div class="tablewrap tablewrap--dark reveal">
       <table class="tbl tbl--dark">
-        <thead><tr><th class="tl">Method &middot; TartanAir-UW (simulated, long-range backscatter)</th><th>Extra<br>data</th><th>Rel&darr;</th><th>SqRel&darr;</th><th>RMSE&darr;</th><th>LogRMSE&darr;</th><th>A1&uarr;</th><th>A2&uarr;</th><th>A3&uarr;</th></tr></thead>
+        <thead><tr><th class="tl">Method &middot; TartanAir-UW (simulated, long-range backscatter)</th><th>Extra<br>data</th><th>AbsRel&darr;</th><th>SqRel&darr;</th><th>RMSE&darr;</th><th>LogRMSE&darr;</th><th>A1&uarr;</th><th>A2&uarr;</th><th>A3&uarr;</th></tr></thead>
         <tbody>
       <tr><td class="tl">UniMatch</td><td>&ndash;</td><td>0.17</td><td>2.59</td><td>6.35</td><td>0.26</td><td>0.759</td><td>0.830</td><td>0.837</td></tr>
       <tr><td class="tl">MoCha-Stereo</td><td>&ndash;</td><td>0.15</td><td>2.30</td><td>6.02</td><td>0.25</td><td>0.769</td><td>0.835</td><td>0.843</td></tr>
@@ -864,7 +864,7 @@
     <div style="height:18px"></div>
     <div class="tablewrap tablewrap--dark reveal">
       <table class="tbl tbl--dark">
-        <thead><tr><th class="tl">Method &middot; SQUID (real-world, near-field attenuation)</th><th>Extra<br>data</th><th>Rel&darr;</th><th>SqRel&darr;</th><th>RMSE&darr;</th><th>LogRMSE&darr;</th><th>A1&uarr;</th><th>A2&uarr;</th><th>A3&uarr;</th></tr></thead>
+        <thead><tr><th class="tl">Method &middot; SQUID (real-world, color attenuation)</th><th>Extra<br>data</th><th>AbsRel&darr;</th><th>SqRel&darr;</th><th>RMSE&darr;</th><th>LogRMSE&darr;</th><th>A1&uarr;</th><th>A2&uarr;</th><th>A3&uarr;</th></tr></thead>
         <tbody>
       <tr><td class="tl">UniMatch</td><td>&ndash;</td><td>1.38</td><td>20.91</td><td>6.42</td><td>0.66</td><td>0.561</td><td>0.660</td><td>0.734</td></tr>
       <tr><td class="tl">MoCha-Stereo</td><td>&ndash;</td><td>0.15</td><td>0.61</td><td>1.55</td><td>0.20</td><td>0.875</td><td>0.931</td><td>0.958</td></tr>
@@ -885,8 +885,8 @@
     </div>
     <p class="caption caption--light reveal">The largest gains track each benchmark's dominant degradation:
       <strong>31% lower RMSE</strong> than FoundationStereo on TartanAir-UW (long-range backscatter) and
-      <strong>33% lower Rel</strong> than IGEV++ on SQUID (near-field attenuation). All baselines shown;
-      Rel/SqRel/RMSE/LogRMSE lower is better, A1/A2/A3 higher is better.</p>
+      <strong>26% lower AbsRel</strong> than IGEV++ on SQUID (color attenuation). All baselines shown;
+      AbsRel/SqRel/RMSE/LogRMSE lower is better, A1/A2/A3 higher is better.</p>
   </div>
 </section>
 
@@ -903,7 +903,7 @@
         <thead>
           <tr>
             <th class="tl">Method</th><th>Extra<br>data</th>
-            <th>Rel&darr;</th><th>SqRel&darr;</th><th>RMSE&darr;</th><th>LogRMSE&darr;</th>
+            <th>AbsRel&darr;</th><th>SqRel&darr;</th><th>RMSE&darr;</th><th>LogRMSE&darr;</th>
             <th>A1&uarr;</th><th>A2&uarr;</th><th>A3&uarr;</th>
           </tr>
         </thead>
@@ -923,7 +923,7 @@
       </table>
     </div>
     <p class="caption reveal"><b>Bold</b>&nbsp;=&nbsp;best. Extra&nbsp;data&nbsp;(&#10003;) = trained beyond SceneFlow.
-      Rel/SqRel/RMSE/LogRMSE lower is better; accuracy thresholds A1/A2/A3 higher is better. Scored only on valid-GT pixels
+      AbsRel/SqRel/RMSE/LogRMSE lower is better; accuracy thresholds A1/A2/A3 higher is better. Scored only on valid-GT pixels
       projecting onto the CAD mesh. LinStereo &mdash; SceneFlow-only &mdash; leads every metric at this near-range,
       fine-structure target. Qualitative close-up in
       <a href="#supplementary">More qualitative results &rarr; Real-world&nbsp;tank</a>.</p>
