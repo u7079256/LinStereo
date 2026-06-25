@@ -28,3 +28,12 @@ static/images/panels/_debug/
 
 # Local session handoff (not for the public site)
 HANDOFF.md
+
+# Build tooling — kept local, not published (regenerates figures/tables/panels)
+tools/
+
+# Internal asset & TODO planning note (not for the public site)
+ASSETS_TODO.md
+
+# Panel slicer manifest — build-time artifact, not used at runtime
+static/images/panels/manifest.json
