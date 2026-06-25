@@ -60,7 +60,7 @@ If you find our work helpful, please consider starring ⭐ this repo and citing:
 - 🧭 **Position-Aware Linear Attention (PALA)** — a global attention update operator with **O(N)** complexity in the number of pixels. Reliable disparity propagates across the *whole* image in a single step, at roughly the per-iteration cost of a local ConvGRU.
 - 🧱 **Hierarchical Semantic Cost Volume (HSCV)** — multi-scale cost construction guided by foundation-model semantics.
 - 🎯 **Depth Prior Initialization (DPI)** — initializes the iterative loop from the backbone's monocular depth prior for faster, more stable convergence.
-- ❄️ **Frozen Depth Anything V3 backbone** (DINOv2 ViT-B/14 + Dual-DPT head) — no backbone fine-tuning; trained on **SceneFlow only**.
+- ❄️ **Frozen Depth Anything V3 backbone** — no backbone fine-tuning; trained on **SceneFlow only**.
 - 🌍 **Zero-shot generalization** — strong on standard benchmarks *and* unseen domains (real-world & synthetic underwater) with **no** domain-specific data.
 
 ![architecture](static/images/architecture.png)

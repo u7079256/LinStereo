@@ -205,7 +205,7 @@
     <figure class="figure reveal">
       <img src="static/images/architecture.png" alt="LinStereo architecture: frozen Depth Anything V3 backbone feeding Hierarchical Semantic Cost Volumes, Depth Prior Initialization, and the Position-Aware Linear Attention updater." loading="lazy" />
       <figcaption>
-        <strong>Architecture.</strong> A frozen Depth&nbsp;Anything&nbsp;V3 backbone (DINOv2 ViT-B/14 + Dual-DPT head)
+        <strong>Architecture.</strong> A frozen Depth&nbsp;Anything&nbsp;V3 backbone
         produces, in a single forward pass, multi-scale stereo features and a monocular depth map. The PALA updater
         replaces the ConvGRU with global linear attention over cost-volume features, using 2D rotary position
         encoding and an adaptive gating branch.
