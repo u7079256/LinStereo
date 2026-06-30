@@ -149,6 +149,13 @@ sup { font-size: .62em; }
 }
 .pill:hover { background: rgba(255,255,255,.16); border-color: var(--cyan); color: #fff; transform: translateY(-2px); }
 .pill svg { width: 18px; height: 18px; }
+.pill--cite {
+  background: var(--caustic);
+  border-color: var(--caustic);
+  color: var(--navy);
+  box-shadow: 0 12px 28px -14px rgba(127,227,212,.9);
+}
+.pill--cite:hover { background: #a9f4e8; border-color: #a9f4e8; color: var(--navy); }
 .pill__soon {
   font-size: .62rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
   padding: 2px 6px; border-radius: 5px; background: rgba(127,227,212,.22); color: var(--caustic);
