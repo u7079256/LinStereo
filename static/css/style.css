@@ -241,6 +241,25 @@ sup { font-size: .62em; }
 .tldr__card p { margin: 0; font-size: 1.06rem; color: var(--ink); }
 .tldr__bolt { width: 30px; height: 30px; color: var(--teal); flex: none; margin-top: 2px; }
 
+/* ---------- NEWS ---------- */
+.news { padding: 26px 0 0; }
+.news__card {
+  max-width: 920px; margin: 0 auto;
+  background: #fff; border: 1px solid var(--line); border-left: 4px solid var(--cyan);
+  border-radius: var(--radius); padding: 22px 28px; box-shadow: var(--shadow);
+}
+.news__heading {
+  font-family: var(--sans); font-weight: 800; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--teal); font-size: .8rem; margin: 0 0 12px;
+}
+.news__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.news__list li { display: flex; gap: 16px; align-items: baseline; color: var(--body); font-size: 1rem; }
+.news__list a { font-weight: 600; }
+.news__date {
+  flex: none; font-family: var(--mono); font-size: .8rem; font-weight: 500;
+  color: var(--muted); white-space: nowrap;
+}
+
 /* ---------- HIGHLIGHTS / STATS ---------- */
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 .stat {
@@ -410,6 +429,7 @@ sup { font-size: .62em; }
 @media (max-width: 480px) {
   .stats, .dstats { grid-template-columns: 1fr; }
   .tldr__card { flex-direction: column; gap: 10px; }
+  .news__list li { flex-direction: column; gap: 2px; }
 }
 
 /* ---------- MOTION / A11Y ---------- */
