@@ -23,6 +23,7 @@
 
 ## 📰 News
 
+- **2026.07** 📰 LinStereo is featured by **CVer**, one of the most popular computer-vision media platforms in China — [read the article](https://mp.weixin.qq.com/s/CIa5FtpWw-ZHHpW6j4-HnA).
 - **2026.07** 🔥 LinStereo is featured by **机器之心 (Synced)**, one of the most influential AI media outlets in China — [read the article](https://mp.weixin.qq.com/s/zocaZrJXWCZw9g10uMTKyg).
 - **2026.06** 📄 Preprint is live on arXiv — **[arXiv:2606.25437](https://arxiv.org/abs/2606.25437)**.
 - **2026.06** 🎉🎉 **LinStereo is accepted to ECCV 2026!**
