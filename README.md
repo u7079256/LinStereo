@@ -12,27 +12,35 @@
 >
 > <sup>†</sup>Corresponding author. &nbsp; <sup>‡</sup>Project lead.
 >
-> ### [🌐 Website](https://u7079256.github.io/LinStereo/) | [📄 arXiv](https://arxiv.org/abs/2606.25437) | [📑 PDF](https://arxiv.org/pdf/2606.25437) | [🌊 SeaStereo Dataset (soon)](#) | [📌 BibTeX](#-citation)
+> ### [🌐 Website](https://u7079256.github.io/LinStereo/) | [📄 arXiv](https://arxiv.org/abs/2606.25437) | [📑 PDF](https://arxiv.org/pdf/2606.25437) | [📌 BibTeX](#-citation)
+
+<!-- Hidden until release: [🌊 SeaStereo Dataset (soon)](#) -->
 
 > **TL;DR** — LinStereo redesigns the iterative stereo update loop around **Position-Aware Linear Attention (PALA)**, a global *O(N)* operator on a **frozen Depth Anything V3** backbone, so reliable disparity propagates across the whole image in a single step. It is competitive on standard benchmarks and generalizes **zero-shot** to new domains, including underwater. **Accepted to ECCV 2026.**
 
+<!--
 > [!NOTE]
 > 🚧 **Code, weights, and the SeaStereo dataset are not released yet — they are coming to this repo soon.** Star ⭐ / watch 👀 to be notified.
+-->
 
 ---
 
 ## 📰 News
 
+<!--
 - **2026.07** 📰 LinStereo is profiled for the third time by **CVer**, one of the most popular computer-vision media platforms in China — [read the article](https://mp.weixin.qq.com/s/OPCIbtAKvdGiD1ri5BTH-g).
 - **2026.07** 📰 LinStereo was also highlighted twice before by **CVer** — [read the article](https://mp.weixin.qq.com/s/CIa5FtpWw-ZHHpW6j4-HnA).
 - **2026.07** 🔥 LinStereo is featured by **机器之心 (Synced)**, one of the most influential AI media outlets in China — [read the article](https://mp.weixin.qq.com/s/zocaZrJXWCZw9g10uMTKyg).
 - **2026.06** 📄 Preprint is live on arXiv — **[arXiv:2606.25437](https://arxiv.org/abs/2606.25437)**.
+-->
 - **2026.06** 🎉🎉 **LinStereo is accepted to ECCV 2026!**
 
+<!--
 **Coming soon (TODO):**
 
 - [ ] **Pretrained weights** — release the SceneFlow-trained LinStereo checkpoint (frozen Depth Anything V3, ViT-B).
 - [ ] **SeaStereo dataset** — release the ~40K-pair physically-rendered underwater corpus with dense disparity ground truth.
+-->
 
 ---
 
@@ -70,6 +78,7 @@ If you find our work helpful, please consider starring ⭐ this repo and citing:
 
 ---
 
+<!--
 ## ⚡ Quick Start
 
 > 🚧 **Code release is coming soon.** The snippet below shows the *intended* API and will be updated when the code lands in this repo.
@@ -97,6 +106,7 @@ disparity = model(left, right, iters=8)   # (B, 1, H, W)
 | **LinStereo** | Depth Anything V3 · ViT-B/14 (frozen) | SceneFlow only | 🚧 Coming soon |
 
 ---
+-->
 
 ## 📦 SeaStereo Dataset
 
@@ -108,7 +118,9 @@ We release **SeaStereo**, a physically-rendered underwater stereo corpus with **
 
 > **Rendering pipeline:** ShapeNetCore foreground objects composited over real marine backgrounds (coral, fish, shipwrecks) and rendered in Blender under varying Jerlov water types.
 >
+<!--
 > 🚧 Download coming soon.
+-->
 
 ---
 
